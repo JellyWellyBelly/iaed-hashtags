@@ -5,19 +5,24 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define DIM_TAB 1000
+#define MAXTAGLEN 140
+
 typedef struct hashtag{
-	char *palavra;
+	char palavra[MAXTAGLEN];
 	int ocorrencias;
 }*tag_ptr;
 
-typedef struct lista{
+typedef struct hashtable{
 	tag_ptr tag;
 	struct lista *proximo;
-}*ligacao;
+}*table;
+
+
 
 int hashtable(char *v, int M);
 
-extern tag_ptr palavras;
+extern table *table_hashtags;
 
 
 #endif
