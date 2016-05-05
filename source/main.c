@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include "avl.h"
+/*
 #include "tree.h"
 #include "table.h"
 #include "auxiliares.h"
@@ -57,4 +59,25 @@ int main(){
 		}
 	}
 	return 0;
+}
+*/
+
+int main()
+{
+	link avl;
+	STinit(&avl);
+	STinsert(&avl, newItem("0#lolitos", 10));
+	STinsert(&avl, newItem("0#yolo", 10));
+	STinsert(&avl, newItem("1#nope", 10));
+	STinsert(&avl, newItem("6#swag", 10));
+	STinsert(&avl, newItem("7#sporting", 10));
+	STinsert(&avl, newItem("8#campeao", 10));
+	STinsert(&avl, newItem("9#portugal", 10));
+	STsort(avl,visitItem);
+	//STdelete(&avl,"asd");
+	 printf("TOTAL: %d\n",STcount(avl));
+
+
+	 //print(avl);
+	return 0;	
 }
