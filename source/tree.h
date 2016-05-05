@@ -1,5 +1,5 @@
-#ifndef _TABLE_
-#define _TABLE_
+#ifndef _TREE_
+#define _TREE_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,16 +14,7 @@ typedef struct hashtag{
 	int ocorrencias;
 }*tag_ptr;
 
-typedef struct hashtable{
-	tag_ptr tag;
-	struct lista *proximo;
-}*table;
-
-
-
-int hashtable(char *v, int M);
-
-extern table *table_hashtags;
+extern tree *tree_hashtags;
 
 
 #endif
