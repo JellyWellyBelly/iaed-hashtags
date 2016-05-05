@@ -16,7 +16,7 @@ int main(){
 
 	bool le_hashtag = false;
 	int contador = 0;
-	char *palavra = (char*)malloc(sizeof(char)*MAXCHAR);
+	palavra = struct hashtag;
 
 	while (1){
 		c = getchar();

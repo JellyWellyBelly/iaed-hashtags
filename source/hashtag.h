@@ -11,6 +11,6 @@
 typedef struct hashtag{
 	char palavra[MAXTAGLEN];
 	int ocorrencias;
-}*tag_ptr;
+}*ptr_hashtag;
 
 #endif _TAG_
