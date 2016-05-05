@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include "tree.h"
 #include "table.h"
 #include "auxiliares.h"
 
@@ -23,19 +24,24 @@ int main(){
 		switch (c){
 
 			case 'a':
-				while(c = getchar()){
+				while(c = getchar())
+				{
 
-					if(le_hashtag){
+					if(e_caracter_branco(c))
+					{
+						le_hashtag = false;
+						*(palavra + contador) = '\0';
+						contador = 0;
+					}
+
+					if(le_hashtag)
+					{
 						*(palavra + contador++) = c;
 					}
 
-					if (c == '#' && !(le_hashtag)){
+					if (c == '#' && !(le_hashtag))
+					{
 						le_hashtag = true;
-					}
-
-					if(e_caracter_branco(c)){
-						le_hashtag = false;
-						contador = 0;
 					}
 				}
 				break;
