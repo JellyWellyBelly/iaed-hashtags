@@ -14,6 +14,11 @@ typedef struct hashtag{
 	int ocorrencias;
 }*tag_ptr;
 
+typedef struct binary_tree{
+	Item item;
+	Item *l, *r;
+} *tree;
+
 extern tree *tree_hashtags;
 
 

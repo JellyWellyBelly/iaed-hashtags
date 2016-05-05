@@ -14,7 +14,7 @@ int M;
 int main(){
 
 	bool le_hashtag = false;
-
+	int contador = 0;
 	char *palavra = (char*)malloc(sizeof(char)*MAXCHAR);
 
 	while (1){
@@ -25,14 +25,17 @@ int main(){
 			case 'a':
 				while(c = getchar()){
 
-					if(le_hashtag)
-						//adiciona o caracter ao ponteiro do novo hashtag
+					if(le_hashtag){
+						*(palavra + contador++) = c;
+					}
 
 					if (c == '#' && !(le_hashtag)){
 						le_hashtag = true;
+					}
 
-					if(e_caracter_branco(c))
+					if(e_caracter_branco(c)){
 						le_hashtag = false;
+						contador = 0;
 					}
 				}
 				break;
