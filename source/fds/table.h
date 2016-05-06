@@ -16,10 +16,11 @@ typedef struct node{
 } *linkH;
 
 int hash(char *string);
-void Init();
-void tableInsert(ptr_hashtag ptr);
-ptr_hashtag searchList(linkH head, char *string);
-linkH insertBeginList(linkH head, ptr);
+void Init(linkH *table);
+ptr_hashtag tableSearch(char *string, linkH *table);
+void tableInsert(ptr_hashtag ptr, linkH *table);
+ptr_hashtag searchTable(linkH head, char *string);
+void insertHash(linkH head, ptr_hashtag ptr);
 
 
 #endif

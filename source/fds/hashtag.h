@@ -13,4 +13,4 @@ typedef struct hashtag{
 	int ocorrencias;
 }*ptr_hashtag;
 
-#endif _TAG_
+#endif

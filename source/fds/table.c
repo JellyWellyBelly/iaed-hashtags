@@ -2,15 +2,14 @@
 
 
 int hash(char *string){
-	int h, a = 12957, b  15038;
+	int h, a = 12957, b = 15038;
 
 	for (h = 0; *string != '\0'; string++, a = a*b % (M-1))
 		h = (a*h + *string) % M;
 	return h;
 }
 
-
-void Init(){
+void Init(linkH *table){
 	int i;
 	table = (linkH*)malloc(sizeof(linkH)*M);
 
@@ -19,58 +18,49 @@ void Init(){
 	}
 }
 
-
-ptr_hashtag tableSearch(char *string){
+ptr_hashtag tableSearch(char *string, linkH *table){
 	int i = hash(string);
-	return searchList(table[i], string);
+	return searchTable(table[i], string);
 }
 
 
-void tableInsert(ptr_hashtag ptr){
+void tableInsert(ptr_hashtag ptr, linkH *table){
 	int i = hash(ptr->palavra);
-	table[i] = insertBeginList(table[i], ptr);
+	// table[i] = insertHash(table[i], ptr) necessario??
+	insertHash(table[i], ptr);
 }
-
 
 
 //Auxiliares
 
 
-ptr_hashtag searchList(linkH head, char *string){
+ptr_hashtag searchTable(linkH head, char *string){
 	if (strcmp(head->tag->palavra, string))
 		return head->tag;
-	else if(head->next == NULL)
-		return;
-	else searchList(head->next, string);
+	else if(head->next != NULL)
+		searchTable(head->next, string);
 }
 
-
-linkH insertBeginList(linkH head, ptr){
-	if (head == NULL){
-		head->tag = ptr;
-		head->next = NULL;
-		return head;
+void insertHash(linkH head, ptr_hashtag ptr){
+	//onde defino o new e como associa-lo ao node anterior
+	if (head == NULL) {
+		linkH new = (linkH)malloc(sizeof(struct node));
+		new->tag = ptr;
+		new->next = NULL;
+		head = new;
 	}
 	else if(strcmp(head->tag->palavra, ptr->palavra)){
 		head->tag->ocorrencias++;
-		return head;
 	}
 	else {
 		if (head->next != NULL){
-			insertBeginList(head->next, ptr);
+			insertHash(head->next, ptr);
 		}
 		else{
-			head->next->tag = ptr;
-			head->next->next = NULL;
-			return head;
+			linkH new = (linkH)malloc(sizeof(struct node));
+			new->tag = ptr;
+			new->next = NULL;
+			head->next = new;
 		}
 	}
 }
-
-
-
-
-
-
-
-

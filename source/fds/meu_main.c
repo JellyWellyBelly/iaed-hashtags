@@ -2,14 +2,23 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include "avl.h"
-#include "tree.h"
 #include "table.h"
 #include "auxiliares.h"
 
 #define MAXCHAR 140
 
 linkH *table;
+
+int main()
+{
+	char str[4] = {"ola"};
+	struct hashtag hush = {"ola", 0};
+	Init(table);
+	tableInsert(&hush, table);
+	free(table);
+
+	return 0;	
+}
 
 /*
 int main(){
@@ -63,12 +72,3 @@ int main(){
 	return 0;
 }
 */
-
-int main()
-{
-	Init();
-	tableInsert(pointer);
-
-
-	return 0;	
-}
