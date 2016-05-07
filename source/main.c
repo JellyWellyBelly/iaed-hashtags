@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "hash.h"
+#include "avl.h"
 #include "auxiliares.h"
 
 #define MAXCHAR 140
@@ -75,8 +76,8 @@ int main()
   	a->rep=2;
   	hashInit(100);
   	hashInsert(a);
-  	b=hashSearch("as ndbsam");
-  	printf("%d\n",b==NULLitem);
+  	b=hashSearch("ola");
+  	printf("%s\n",b->item);
 	
 	 //print(avl);
 	return 0;	

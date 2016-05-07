@@ -10,5 +10,11 @@ static int N, M;
 static Item *st;
 
 void hashExpand();
+void hashInit(int max);
+int hash(char *v, int M);
+void hashInsert(Item item);
+void hashExpand();
+Item hashSearch(Key v);
+void hashDelete(Item item);
 
 #endif
