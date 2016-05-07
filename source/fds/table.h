@@ -1,5 +1,5 @@
-#ifndef _TREE_
-#define _TREE_
+#ifndef _TABLE_
+#define _TABLE_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,12 +11,17 @@
 #define M 100
 
 typedef struct node{
-	ptr_hashtag tag;
+	Item hashtag;
 	struct node *next;
-} *link;
+} *linkH;
 
-static link *heads;
+int hash(char *string);
+void Init(linkH *table);
+Item tableSearch(char *string, linkH *table);
+void tableInsert(Item ptr, linkH *table);
+Item searchTable(linkH head, char *string);
+linkH insertHash(linkH head, Item ptr);
+linkH NewNode(Item ptr);
 
-extern tree *tree_hashtags;
 
 #endif

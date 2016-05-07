@@ -3,16 +3,10 @@
 #include <stdbool.h>
 #include <string.h>
 #include "hash.h"
-/*
-#include "tree.h"
-#include "table.h"
 #include "auxiliares.h"
 
 #define MAXCHAR 140
-
-tree *tree_hashtags;
-
-int M;
+/*
 
 int main(){
 

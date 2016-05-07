@@ -9,8 +9,8 @@
 #define MAXTAGLEN 140
 
 typedef struct hashtag{
-	char palavra[MAXTAGLEN];
+	char palavra;
 	int ocorrencias;
 }*ptr_hashtag;
 
-#endif _TAG_
+#endif
