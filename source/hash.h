@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "Item.h"
 
-#define null(A) (key(st[A]) == "")
+#define null(A) (key(st[A]) == keyNull(NULLitem))
 
 static int N, M;
 static Item *st;

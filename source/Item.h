@@ -14,7 +14,12 @@ char *hashtag;
 
 
 #define NULLitem NULL
-#define key(a) (a != NULL || a!=NULLitem ? a->item : "")
+#define key(a) (a == NULL ? "" : a->item)
+#define keyNull(a) (a == NULL ? "" : "")
+#define key2(a) (a != NULL || a!=NULLitem ? a->hashtag : "")
+
+
+
 #define less(a,b) (strcmp(a,b)<0)
 #define greater(a,b) (strcmp(a,b)>0)
 #define eq(a,b) (strcmp(a,b)==0)

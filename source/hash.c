@@ -1,5 +1,7 @@
 #include "hash.h"
 
+
+
 void hashInit(int max) {
   int i;
 
@@ -14,7 +16,7 @@ void hashInit(int max) {
 
 int hash(char *v, int M)
 {
-  int h, a = 31415, b = 27183; //MUDAR
+  int h, a = 31415, b = 27183; //MUDAR PRIMOS
   for (h = 0; *v != '\0'; v++, a = a*b % (M-1))
     h = (a*h + *v) % M;
 return h; 
@@ -22,7 +24,7 @@ return h;
 }
 
 void hashInsert(Item item) {
-  Key v = key(item);
+  Key v = key2(item);
   int i = hash(v, M);
 
   while (!null(i)) 
@@ -41,7 +43,7 @@ void hashExpand() {
   hashInit(M+M);
 
   for (i = 0; i < M/2; i++)
-    if (key(t[i]) != "") //VIOLA ABSTRACAO
+    if (key2(t[i]) != keyNull(NULLitem)) //VIOLA ABSTRACAO
       hashInsert(t[i]);
   free(t);
 }
@@ -51,7 +53,7 @@ Item hashSearch(Key v)
   int i = hash(v, M);
 
   while (!null(i))
-    if (eq(v, key(st[i])))
+    if (eq(v, key2(st[i])))
       return st[i];
     else
       i = (i+1) % M;
@@ -61,11 +63,11 @@ Item hashSearch(Key v)
 
 void hashDelete(Item item)
 { 
-  int j, i = hash(key(item), M);
+  int j, i = hash(key2(item), M);
   Item v;
 
   while (!null(i))
-    if (eq(key(item), key(st[i]))) break;
+    if (eq(key2(item), key2(st[i]))) break;
     else i = (i+1) % M;
 
   if (null(i)) return;
