@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include "avl.h"
+#include "hash.h"
 /*
 #include "tree.h"
 #include "table.h"
@@ -64,20 +64,30 @@ int main(){
 
 int main()
 {
-	link avl;
+	/*link avl;
 	STinit(&avl);
-	STinsert(&avl, newItem("0#lolitos", 10));
-	STinsert(&avl, newItem("0#yolo", 10));
-	STinsert(&avl, newItem("1#nope", 10));
-	STinsert(&avl, newItem("6#swag", 10));
-	STinsert(&avl, newItem("7#sporting", 10));
-	STinsert(&avl, newItem("8#campeao", 10));
-	STinsert(&avl, newItem("9#portugal", 10));
+	STinsert(&avl, newItem("8#campeao","#campeao" ,8));
+	STinsert(&avl, newItem("9#portugal","#portugal" ,9));
+	STinsert(&avl, newItem("0#lolitos","#lolitos", 0));
+	STinsert(&avl, newItem("1#nope", "#nope",1));
+	STinsert(&avl, newItem("6#swag", "#swag",6));
+	STinsert(&avl, newItem("0#nao", "#nao",0));
+	STinsert(&avl, newItem("0#yolo", "#yolo",0));
+	STinsert(&avl, newItem("0#yoloo", "#yoloo",0));
+	STdelete(&avl,"0#yoloo");
 	STsort(avl,visitItem);
-	//STdelete(&avl,"asd");
-	 printf("TOTAL: %d\n",STcount(avl));
-
-
+	STfree(&avl);*/
+	Item a,b;
+  	char *achas="ola";
+  	a = (Item)malloc(sizeof(struct hashtags));
+  	b = (Item)malloc(sizeof(struct hashtags));
+  	a->item=strdup(achas);
+  	a->rep=2;
+  	hashInit(100);
+  	hashInsert(a);
+  	b=hashSearch("as ndbsam");
+  	printf("%d\n",b==NULLitem);
+	
 	 //print(avl);
 	return 0;	
 }

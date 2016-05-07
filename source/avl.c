@@ -71,28 +71,26 @@ link AVLbalance(link h) {
 
 return h; }
 
-link deleteR(link h, Key k) {
+link deleteR(link h, Key k)
+{
     if (h==NULL) return h;
-    else if (less(k, key(h->item))) h->l=deleteR(h->l,k);
-    else if (less(key(h->item), k)) h->r=deleteR(h->r,k) ;
-    else{
-        if (h->l !=NULL && h->r !=NULL){
+    else if (less( key(h->item),k)) h->l=deleteR(h->l,k);
+    else if (less(k,key(h->item))) h->r=deleteR(h->r,k) ;
+    else {
+        if (h->l !=NULL && h->r !=NULL){/*caso 3*/
             link aux=max(h->l);
-            {Item x; x=h->item; h->item=aux->item; aux->item=x;}
+            {Item x; x=h->item; h->item=aux->item; aux->item=x; }
             h->l= deleteR(h->l, key(aux->item));
-}
-else {
+        } else { /*casos 1 e 2*/
             link aux=h;
-            if (h->l == NULL && h->r == NULL) h=NULL;
+            if ( h->l == NULL && h->r == NULL ) h=NULL;
             else if (h->l==NULL) h=h->r;
             else h=h->l;
             deleteItem(aux->item);
             free(aux);
-}
-}
-    h=AVLbalance(h);
-return h;
-
+        }
+    }
+    return h;
 }
 
 link rotR(link h)
@@ -145,22 +143,45 @@ void STdelete(link*head, Key k){
 
 link insertR(link h, Item item)
 {
+    char * splited1;
+    char * splited2;
+    char iitem[500];
+    char hitem[500];
+    if(h!=NULL){
+        
+        strcpy(iitem,key(item));
+        strcpy(hitem,key(h->item));
+        splited1=strtok(iitem,"#");
+        splited2=strtok(hitem,"#");
+    }
     if (h == NULL)
         return NEW(item, NULL, NULL);
-    if (less(key(item), key(h->item)))
+    if (greater(splited1, splited2))
         h->l = insertR(h->l, item);
-    else
+    else if (less(splited1, splited2)){
         h->r = insertR(h->r, item);
+    }
+    else{
+        splited1=strtok(splited1,"#");
+        splited2=strtok(splited2,"#");
+        if (less(splited1, splited2)){
+            h->l = insertR(h->l, item);   
+        }
+        else
+            h->r = insertR(h->r, item);   
+    }
+
     h=AVLbalance(h);
+
 return h; }
 
 void sortR(link h, void (*visit)(Item))
 {
     if (h == NULL)
         return;
-    sortR(h->r, visit);
-    visit(h->item);
     sortR(h->l, visit);
+    visit(h->item);
+    sortR(h->r, visit);
 }
 void STsort(link head, void (*visit)(Item))
 {
