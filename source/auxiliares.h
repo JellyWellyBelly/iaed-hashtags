@@ -12,6 +12,4 @@ static const char separators[] = {' ','\t',',',';','.','?','!','"','\n',':','\0'
 
 bool e_caracter_branco(char c);
 
-extern table *table_hashtags;
-
 #endif
