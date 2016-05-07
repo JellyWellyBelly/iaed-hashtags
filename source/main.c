@@ -3,22 +3,20 @@
 #include <stdbool.h>
 #include <string.h>
 #include "avl.h"
-/*
-#include "tree.h"
 #include "table.h"
 #include "auxiliares.h"
 
 #define MAXCHAR 140
 
-tree *tree_hashtags;
-
-int M;
+/*
 
 int main(){
 
 	bool le_hashtag = false;
+	int len_mensagem = 0;
 	int contador = 0;
-	palavra = struct hashtag;
+	char *palavra;
+	Item tag = (Item)malloc(sizeof(struct hashtags));
 
 	while (1){
 		c = getchar();
@@ -26,36 +24,40 @@ int main(){
 		switch (c){
 
 			case 'a':
+				c = getchar();
 				while(c = getchar())
 				{
+					len_mensagem++;
 
-					if(e_caracter_branco(c))
-					{
+					if(e_caracter_branco(c) && le_hashtag){
 						le_hashtag = false;
 						*(palavra + contador) = '\0';
 						contador = 0;
+						tag->item = strdup(palavra);
+						hashInsert(tag);
 					}
 
-					if(le_hashtag)
-					{
+					if(le_hashtag){
 						*(palavra + contador++) = c;
 					}
 
-					if (c == '#' && !(le_hashtag))
-					{
+					if (c == '#' && !(le_hashtag)){
 						le_hashtag = true;
+						*(palavra + contador++) = c;
 					}
 				}
 				break;
 
 			case 's':
+				c = getchar();
 				break;
 
 			case 'm':
+				c = getchar();
 				break;
-
-			case 'x':
-				break;
+		}
+		if (c == 'x'){
+			free(tag);
 		}
 	}
 	return 0;

@@ -1,6 +1,5 @@
 #include "table.h"
 
-
 int hash(char *string){
 	int h, a = 12957, b = 15038;
 
@@ -18,49 +17,54 @@ void Init(linkH *table){
 	}
 }
 
-ptr_hashtag tableSearch(char *string, linkH *table){
-	int i = hash(string);
-	return searchTable(table[i], string);
+Item tableSearch(Item ptr, linkH *table){
+	int i = hash(key(ptr));
+	return searchTable(table[i], key(ptr));
 }
 
-
-void tableInsert(ptr_hashtag ptr, linkH *table){
-	int i = hash(ptr->palavra);
-	// table[i] = insertHash(table[i], ptr) necessario??
-	insertHash(table[i], ptr);
+void tableInsert(Item ptr, linkH *table){
+	int i = hash(key(ptr));
+	table[i] = insertHash(table[i], ptr);
 }
 
 
 //Auxiliares
 
+Item searchTable(linkH head, char *string){
+	linkH x;
 
-ptr_hashtag searchTable(linkH head, char *string){
-	if (strcmp(head->tag->palavra, string))
-		return head->tag;
-	else if(head->next != NULL)
-		searchTable(head->next, string);
+	for(x = head; x != NULL; x = x->next){
+		if (strcmp(x->key(hashtag), string) == 0)
+			return x->hashtag;
+	}
 }
 
-void insertHash(linkH head, ptr_hashtag ptr){
-	//onde defino o new e como associa-lo ao node anterior
-	if (head == NULL) {
-		linkH new = (linkH)malloc(sizeof(struct node));
-		new->tag = ptr;
-		new->next = NULL;
-		head = new;
+linkH insertHash(linkH head, Item ptr){
+	linkH x;
+	if (head == NULL){
+		return NewNode(ptr);
 	}
-	else if(strcmp(head->tag->palavra, ptr->palavra)){
-		head->tag->ocorrencias++;
-	}
-	else {
-		if (head->next != NULL){
-			insertHash(head->next, ptr);
+	else{
+		for (x = head; x->next != NULL; x = x->next){
+			if(strcmp(head->key(hashtag), key(ptr))){
+				head->hashtag->ocorrencias++;
+				return head;
+			}
 		}
-		else{
-			linkH new = (linkH)malloc(sizeof(struct node));
-			new->tag = ptr;
-			new->next = NULL;
-			head->next = new;
-		}
+		x->next = NewNode(ptr);
+
+		//nao estava nos slides
+		x->next->next = NULL;
+		//nao estava nos slides
+
+		return head;
 	}
+}
+
+linkH NewNode(Item ptr){
+	linkH x = (linkH)malloc(sizeof(struct node));
+	x->hashtag = ptr;
+	x->next = NULL;
+
+	return x;
 }

@@ -11,16 +11,17 @@
 #define M 100
 
 typedef struct node{
-	ptr_hashtag tag;
+	Item hashtag;
 	struct node *next;
 } *linkH;
 
 int hash(char *string);
 void Init(linkH *table);
-ptr_hashtag tableSearch(char *string, linkH *table);
-void tableInsert(ptr_hashtag ptr, linkH *table);
-ptr_hashtag searchTable(linkH head, char *string);
-void insertHash(linkH head, ptr_hashtag ptr);
+Item tableSearch(char *string, linkH *table);
+void tableInsert(Item ptr, linkH *table);
+Item searchTable(linkH head, char *string);
+linkH insertHash(linkH head, Item ptr);
+linkH NewNode(Item ptr);
 
 
 #endif
