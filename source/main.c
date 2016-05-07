@@ -67,7 +67,7 @@ int main()
 	STinsert(&avl, newItem("0#yoloo", "#yoloo",0));
 	STdelete(&avl,"0#yoloo");
 	STsort(avl,visitItem);
-	STfree(&avl);*/
+	STfree(&avl);*/ 
 	Item a,b;
   	char *achas="ola";
   	a = (Item)malloc(sizeof(struct hashtags));
