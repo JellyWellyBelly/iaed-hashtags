@@ -107,17 +107,19 @@ int main()
 	STfree(&avl);
 
 	Item a,b;
-  	char *achas="ola";
+  	char *achas="#ola";
+  	char *achas2="5#ola";
   	a = (Item)malloc(sizeof(struct hashtags));
   	b = (Item)malloc(sizeof(struct hashtags));
-  	a->item=strdup(achas);
+  	a->item=strdup(achas2);
+  	a->hashtag=strdup(achas);
   	a->rep=2;
   	hashInit(100);
   	hashInsert(a);
-  	b=hashSearch("ola");
-  	printf("%s\n",b->item);
+  	b=hashSearch("#ola");
+  	printf("%s\n",b->hashtag);
 	
-	 //print(avl);
+	//print(avl);
 	return 0;	
 }
 */
