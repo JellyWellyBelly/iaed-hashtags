@@ -9,7 +9,7 @@ typedef char* Key;
 typedef struct hashtags{
 char* item; 
 int rep;
-char *hashtag;
+char* hashtag;
 }* Item;
 
 
