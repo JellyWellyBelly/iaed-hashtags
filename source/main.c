@@ -7,13 +7,18 @@
 #include "auxiliares.h"
 
 #define MAXCHAR 140
+
+
 /*
 int main(){
 	bool le_hashtag = false;
-	int len_mensagem = 0;
-	int contador = 0;
-	char *palavra;
+	int len_mensagem = 0, contador = 0;
+	char c, palavra[MAXCHAR];
 	Item tag = (Item)malloc(sizeof(struct hashtags));
+	Item aux;
+
+	hashInit(100);
+
 	while (1){
 		c = getchar();
 		switch (c){
@@ -22,19 +27,51 @@ int main(){
 				while(c = getchar())
 				{
 					len_mensagem++;
+					
 					if(e_caracter_branco(c) && le_hashtag){
 						le_hashtag = false;
-						*(palavra + contador) = '\0';
+						palavra[contador] = '\0';
 						contador = 0;
-						tag->item = strdup(palavra);
-						hashInsert(tag);
+						tag->hashtag = strdup(palavra);
+						tag->rep = 1;
+						aux = hashSearch(tag);
+
+						if (aux == NULLitem){
+							tag->item = strdup(criaItem(tag->hashtag, tag->rep));
+							hashInsert(tag);
+						}
+						else{
+
+							aux->rep++;
+							aux->item = strdup(criaItem(aux->hashtag, aux->rep));
+						}
+
 					}
 					if(le_hashtag){
-						*(palavra + contador++) = c;
+						palavra[contador++] = c;
 					}
 					if (c == '#' && !(le_hashtag)){
 						le_hashtag = true;
-						*(palavra + contador++) = c;
+						palavra[contador++] = c;
+					}
+				}
+				
+				if (le_hashtag){
+					le_hashtag = false;
+					palavra[contador] = '\0';
+					contador = 0;
+					tag->hashtag = strdup(palavra);
+					tag->rep = 1;
+					aux = hashSearch(tag);
+
+					if (aux == NULLitem){
+						tag->item = strdup(criaItem(tag->hashtag, tag->rep));
+						hashInsert(tag);
+					}
+					else{
+
+						aux->rep++;
+						aux->item = strdup(criaItem(aux->hashtag, aux->rep));
 					}
 				}
 				break;
@@ -73,6 +110,7 @@ int main()
 	STsort(avl,visitItem);
 	STfree(&avl);
 	/*Item a,b;
+	Item a,b;
   	char *achas="#ola";
   	char *achas2="5#ola";
   	a = (Item)malloc(sizeof(struct hashtags));

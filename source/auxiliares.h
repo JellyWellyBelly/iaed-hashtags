@@ -11,5 +11,6 @@
 static const char separators[] = {' ','\t',',',';','.','?','!','"','\n',':','\0'};
 
 bool e_caracter_branco(char c);
+char* criaItem(char* item, int rep);
 
 #endif
