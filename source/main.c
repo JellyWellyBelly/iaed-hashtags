@@ -27,7 +27,7 @@ int main(){
 			case 'a':
 				c = getchar();
 				
-				while((c = getchar()) && len_mensagem < 140)
+				while((c = getchar()!='\n') && len_mensagem < 140)
 				{
 					len_mensagem++;
 					
@@ -105,6 +105,7 @@ int main(){
 				break;
 		}
 		if (c == 'x'){
+			STfree(&avl);
 		}
 	}
 	return 0;
