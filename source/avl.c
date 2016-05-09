@@ -1,5 +1,24 @@
 #include "avl.h"
 
+int specialCompare(char* wordItem1, char* wordItem2){
+   char * splited1;
+   char * splited2;
+   char iitem[500];
+   char hitem[500];
+   int compareOccorrences;
+   strcpy(iitem,wordItem1);
+   strcpy(hitem,wordItem2);
+   splited1=strtok(iitem,"#");
+   splited2=strtok(hitem,"#");
+   compareOccorrences = strcmp(wordItem2,wordItem1);
+   if(compareOccorrences==0){
+       splited1=strtok(NULL,"#");
+       splited2=strtok(NULL,"#");
+       return strcmp(splited1,splited2);
+
+   }else
+       return compareOccorrences;
+}
 
 link NEW(Item item, link l, link r)
 {
@@ -52,6 +71,7 @@ link rotL(link h)
   return x;
 }
 
+
 link AVLbalance(link h) {
     int balanceFactor;
     if (h==NULL) return h;
@@ -71,17 +91,18 @@ link AVLbalance(link h) {
 
 return h; }
 
+/*
 link deleteR(link h, Key k)
 {
     if (h==NULL) return h;
-    else if (less( key(h->item),k)) h->l=deleteR(h->l,k);
+    else if (less(key(h->item),k)) h->l=deleteR(h->l,k);
     else if (less(k,key(h->item))) h->r=deleteR(h->r,k) ;
     else {
-        if (h->l !=NULL && h->r !=NULL){/*caso 3*/
+        if (h->l !=NULL && h->r !=NULL){
             link aux=max(h->l);
             {Item x; x=h->item; h->item=aux->item; aux->item=x; }
             h->l= deleteR(h->l, key(aux->item));
-        } else { /*casos 1 e 2*/
+        } else { 
             link aux=h;
             if ( h->l == NULL && h->r == NULL ) h=NULL;
             else if (h->l==NULL) h=h->r;
@@ -90,9 +111,108 @@ link deleteR(link h, Key k)
             free(aux);
         }
     }
+    h=AVLbalance(h);
+    return h;
+}*/
+
+
+link deleteR(link h, Key k)
+{
+    char * splited1;
+    char achas[500];
+    char reptostr[20];
+    if (h!=NULL){
+        strcpy(achas,k);
+        splited1=strtok(achas,"#");
+        sprintf(reptostr, "%d", h->item->rep);
+        printf("Rep:%s splited1:%s Item: %s k:%s \n",reptostr,splited1,h->item->item,k);
+        //printf("%s %s\n",reptostr,splited1);
+        //splited1=strtok(NULL,"#");
+        //printf("%s %s\n",h->item->hashtag,splited1);
+    }
+    if (h==NULL) return h;
+    else if (less(reptostr,splited1)) {
+            //splited1=strtok(NULL,"#");
+            printf("Q:%d QQ:%s\n",h->item->rep,splited1);
+            h->l=deleteR(h->l,k) ;
+    }
+    else if (greater(reptostr,splited1)) {
+            //splited1=strtok(NULL,"#");
+            printf("R:%d RR:%s\n",h->item->rep,splited1);
+            h->r=deleteR(h->r,k) ;
+
+
+    }
+
+    else {
+        splited1=strtok(NULL,"#");
+        if(less(h->item->hashtag,splited1))
+            h->r=deleteR(h->r,k) ;
+        else if(greater(h->item->hashtag,splited1))
+            h->l=deleteR(h->l,k) ;
+        else
+        if (h->l !=NULL && h->r !=NULL && eq(h->item->hashtag,splited1)){
+                link aux=max(h->r);
+                {Item x; x=h->item; h->item=aux->item; aux->item=x;}
+                h->r= deleteR(h->r, key(aux->item));
+        } 
+        else 
+        { 
+            link aux=h;
+            if (h->l == NULL && h->r == NULL) h=NULL;
+            else if (h->l==NULL) h=h->r;
+            else h=h->l;
+            deleteItem(aux->item);
+            free(aux);
+        }
+    }
+    h=AVLbalance(h);
     return h;
 }
 
+/*
+link deleteR(link h, Key k) {
+    char * splited1;
+    char achas[500];
+    char reptostr[20];
+    if (h!=NULL){
+        strcpy(achas,k);
+        splited1=strtok(achas,"#");
+        sprintf(reptostr, "%d", h->item->rep);
+        //printf("A:%s k:%s\n",reptostr,splited1);
+        
+        printf("B:%s :%s\n",h->item->hashtag,k);
+    }
+    if (h==NULL) return h;
+    else if (greater(splited1,reptostr)) h->l=deleteR(h->l,k);
+    else if (less(splited1, reptostr)) h->r=deleteR(h->r,k) ;
+    else{
+        splited1=strtok(NULL,"#");
+
+        if (h->l !=NULL && h->r !=NULL){
+            if(greater(splited1,h->item->hashtag)){
+                link aux=max(h->l);
+                {Item x; x=h->item; h->item=aux->item; aux->item=x;}
+                h->l= deleteR(h->l, key(aux->item));
+            }
+            else{
+                link aux=max(h->r);
+                {Item x; x=h->item; h->item=aux->item; aux->item=x;}
+                h->r= deleteR(h->r, key(aux->item));
+            }
+        }else {
+            link aux=h;
+            if (h->l == NULL && h->r == NULL) h=NULL;
+            else if (h->l==NULL) h=h->r;
+            else h=h->l;
+            deleteItem(aux->item);
+            free(aux);
+        }
+    }
+    h=AVLbalance(h);
+    return h;
+}
+*/
 link rotR(link h)
 {
     int height_left, height_right;
@@ -141,39 +261,27 @@ void STdelete(link*head, Key k){
 }
 
 
+//specialCompare(h->item->item,item->item)
 link insertR(link h, Item item)
 {
-    char * splited1;
-    char * splited2;
-    char iitem[500];
-    char hitem[500];
-    if(h!=NULL){
-        
-        strcpy(iitem,key(item));
-        strcpy(hitem,key(h->item));
-        splited1=strtok(iitem,"#");
-        splited2=strtok(hitem,"#");
-    }
-    if (h == NULL)
-        return NEW(item, NULL, NULL);
-    if (greater(splited1, splited2))
-        h->l = insertR(h->l, item);
-    else if (less(splited1, splited2)){
-        h->r = insertR(h->r, item);
-    }
-    else{
-        splited1=strtok(splited1,"#");
-        splited2=strtok(splited2,"#");
-        if (less(splited1, splited2)){
-            h->l = insertR(h->l, item);   
-        }
-        else
-            h->r = insertR(h->r, item);   
-    }
-
-    h=AVLbalance(h);
+   if (h == NULL)
+       return NEW(item, NULL, NULL);
+   if (h->item->rep < item->rep)
+       h->l = insertR(h->l, item);
+   else if (h->item->rep > item->rep){
+       h->r = insertR(h->r, item);
+   }
+   else{
+       if (greater(h->item->hashtag, item->hashtag)){
+           h->l = insertR(h->l, item);   
+       }
+       else
+           h->r = insertR(h->r, item);   
+   }
+   h=AVLbalance(h);
 
 return h; }
+
 
 void sortR(link h, void (*visit)(Item))
 {
