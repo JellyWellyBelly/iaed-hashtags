@@ -106,7 +106,12 @@ int main()
 	STinsert(&avl, newItem("0#nbavsdnbasb", "nbavsdnbasb",0));
 	STinsert(&avl, newItem("0#aaaa", "aaaa",0));
 	STinsert(&avl, newItem("0#yoloo", "yoloo",0));
+	STsort(avl,visitItem);
+	printf("ASDASDSADSADSADSADSDADASDSADASDAS\n");
 	STdelete(&avl,"9#portugal");
+	STdelete(&avl,"0#aaaa");
+	STdelete(&avl,"0#yoloo");
+	STdelete(&avl,"0#nbavsdnbasb");
 	STsort(avl,visitItem);
 	STfree(&avl);
 	/*Item a,b;
