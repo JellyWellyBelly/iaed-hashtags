@@ -1,7 +1,6 @@
 #include "hash.h"
 
 
-
 void hashInit(int max) {
   int i;
 
@@ -43,7 +42,7 @@ void hashExpand() {
   hashInit(M+M);
 
   for (i = 0; i < M/2; i++)
-    if (key2(t[i]) != keyNull(NULLitem)) //VIOLA ABSTRACAO
+    if (key2(t[i]) != keyNull(NULLitem))
       hashInsert(t[i]);
   free(t);
 }

@@ -55,20 +55,24 @@ int main(){
 
 int main()
 {
-	/*link avl;
+	link avl;
 	STinit(&avl);
-	STinsert(&avl, newItem("8#campeao","#campeao" ,8));
-	STinsert(&avl, newItem("9#portugal","#portugal" ,9));
-	STinsert(&avl, newItem("0#lolitos","#lolitos", 0));
-	STinsert(&avl, newItem("1#nope", "#nope",1));
-	STinsert(&avl, newItem("6#swag", "#swag",6));
-	STinsert(&avl, newItem("0#nao", "#nao",0));
-	STinsert(&avl, newItem("0#yolo", "#yolo",0));
-	STinsert(&avl, newItem("0#yoloo", "#yoloo",0));
-	STdelete(&avl,"0#yoloo");
+	STinsert(&avl, newItem("8#campeao","campeao" ,8));
+	STinsert(&avl, newItem("9#portugal","portugal" ,9));
+	STinsert(&avl, newItem("9#benfica","benfica", 9));
+	STinsert(&avl, newItem("0#lolitos","lolitos", 0));
+	STinsert(&avl, newItem("0#phahaha","phahaha", 0));
+	STinsert(&avl, newItem("1#nope", "nope",1));
+	STinsert(&avl, newItem("6#swag", "swag",6));
+	STinsert(&avl, newItem("0#nao", "nao",0));
+	STinsert(&avl, newItem("0#yolo", "yolo",0));
+	STinsert(&avl, newItem("0#nbavsdnbasb", "nbavsdnbasb",0));
+	STinsert(&avl, newItem("0#aaaa", "aaaa",0));
+	STinsert(&avl, newItem("0#yoloo", "yoloo",0));
+	STdelete(&avl,"9#portugal");
 	STsort(avl,visitItem);
-	STfree(&avl);*/ 
-	Item a,b;
+	STfree(&avl);
+	/*Item a,b;
   	char *achas="#ola";
   	char *achas2="5#ola";
   	a = (Item)malloc(sizeof(struct hashtags));
@@ -76,11 +80,12 @@ int main()
   	a->item=strdup(achas2);
   	a->hashtag=strdup(achas);
   	a->rep=2;
-  	hashInit(100);
+  	hashInit(498257); //numero primo
   	hashInsert(a);
-  	b=hashSearch("#ola");
-  	printf("%s\n",b->hashtag);
+  	hashInsert(newItem("6#swag", "#swag",6));
+  	b=hashSearch("#swag");
+  	printf("%d\n",b==NULL);
 	
-	//print(avl);
+	//print(avl);*/
 	return 0;	
 }

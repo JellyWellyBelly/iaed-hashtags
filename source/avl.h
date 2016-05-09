@@ -6,6 +6,7 @@
 
 typedef struct STnode* link;
 struct STnode { Item item; link l, r; int height;};
+static link head;
 
 void STinit(link*);
 int STcount(link);
@@ -15,7 +16,8 @@ void STdelete(link*,Key);
 void STsort(link,void (*visit)(Item));
 void STfree(link*);
 void STinit(link*);
-
+link NEW(Item item, link l, link r);
+link AVLbalance(link h);
 link rotR(link h);
 link rotLR(link h);
 link rotRL(link h);

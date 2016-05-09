@@ -17,5 +17,6 @@ void deleteItem(Item a)
 
 void visitItem(Item a) 
 {
-    printf("%s %d\n",a->hashtag,a->rep);
+    printf("#%s %d\n",a->hashtag,a->rep);
 }
+

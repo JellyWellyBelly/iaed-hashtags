@@ -15,7 +15,7 @@ char *hashtag;
 
 #define NULLitem NULL
 #define key(a) (a == NULL ? "" : a->item)
-#define keyNull(a) (a == NULL ? "" : "")
+#define keyNull(a) (a == NULL ? "" : "a")
 #define key2(a) (a != NULL || a!=NULLitem ? a->hashtag : "")
 
 
