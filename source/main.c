@@ -53,11 +53,18 @@ int main(){
 								max_hashtag = palavra;
 							}
 
+							STsort(avl,visitItem);
 							hashInsert(newItem(criaItem(palavra, 1), p, 1));
 							STinsert(&avl, newItem(criaItem(palavra, 1), p, 1));
+							STsort(avl,visitItem);
+
 						}
 						else{
+							printf("antes: \n");
+							STsort(avl,visitItem);
 							STdelete(&avl, aux->item);
+							printf("depois: \n");
+							STsort(avl,visitItem);
 							aux->rep++;
 
 							//verifica a hashtag mais popular
@@ -71,6 +78,7 @@ int main(){
 
 							repeticoes++;
 							aux->item = strdup(criaItem(palavra, aux->rep));
+
 							STinsert(&avl, newItem(aux->item, p, aux->rep));
 						}
 					}
