@@ -14,7 +14,7 @@ link avl;
 int main(){
 	bool le_hashtag = false;
 	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0, max_rep = 0;
-	char c, palavra[MAXCHAR], *p, *max_hashtag;
+	char c, palavra[MAXCHAR], *p, *max_hashtag = "";
 	//Item tag = (Item)malloc(sizeof(struct hashtags));
 	Item aux = (Item)malloc(sizeof(struct hashtags));
 
@@ -95,7 +95,8 @@ int main(){
 				break;
 
 			case 'm':
-				printf("%s %d\n", max_hashtag, max_rep);
+				if (max_rep > 0)
+					printf("%s %d\n", max_hashtag, max_rep);
 				break;
 
 			case 'l':
