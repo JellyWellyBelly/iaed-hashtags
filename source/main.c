@@ -11,6 +11,7 @@
 
 link avl;
 
+/*
 int main(){
 	bool le_hashtag = false;
 	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0;
@@ -93,9 +94,9 @@ int main(){
 		}
 	}
 	return 0;
-}
+}*/
 
-/*
+
 int main()
 {
 	//STinsert(&avl, newItem("8#campeao","campeao" ,8));
@@ -129,10 +130,11 @@ int main()
   	hashInit(498257); //numero primo
   	hashInsert(a);
   	hashInsert(newItem("6#swag", "#swag",6));
+  	hashInsert(newItem("6#swag", "#swag",6));
+  	hashInsert(newItem("6#swag", "#swag",6));
   	b=hashSearch("#swag");
   	printf("%d\n",b==NULL);
 	
 	//print(avl);
 	return 0;	
 }
-*/
