@@ -11,7 +11,6 @@
 
 link avl;
 
-/*
 int main(){
 	bool le_hashtag = false;
 	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0, max_rep = 0;
@@ -27,6 +26,7 @@ int main(){
 		switch (c){
 			case 'a':
 				c = getchar();
+				len_mensagem = 0;
 				
 				while((c = getchar()))
 				{ 
@@ -38,10 +38,9 @@ int main(){
 						indice = 0;
 						p = palavra;
 						p++;
-						aux = hashSearch(palavra);
+						aux = hashSearch(p);
 
 						if (aux == NULLitem){
-							printf("%s\n", palavra);
 							contador++;
 							repeticoes++;
 
@@ -54,25 +53,24 @@ int main(){
 								max_hashtag = palavra;
 							}
 
-							hashInsert(newItem(criaItem(palavra, 1), palavra, 1));
+							hashInsert(newItem(criaItem(palavra, 1), p, 1));
 							STinsert(&avl, newItem(criaItem(palavra, 1), p, 1));
 						}
 						else{
-							printf("%s %d %s - %s\n", aux->item, aux->rep, aux->hashtag, palavra);
 							STdelete(&avl, aux->item);
 							aux->rep++;
 
 							//verifica a hashtag mais popular
 							if (aux->rep > max_rep){
 								max_rep = aux->rep;
-								max_hashtag = aux->hashtag;
+								max_hashtag = palavra;
 							}
-							else if (aux->rep == max_rep && strcmp(aux->hashtag, max_hashtag) < 0){
-								max_hashtag = aux->hashtag;
+							else if (aux->rep == max_rep && strcmp(palavra, max_hashtag) < 0){
+								max_hashtag = palavra;
 							}
 
 							repeticoes++;
-							aux->item = strdup(criaItem(aux->hashtag, aux->rep));
+							aux->item = strdup(criaItem(palavra, aux->rep));
 							STinsert(&avl, newItem(aux->item, p, aux->rep));
 						}
 					}
@@ -110,9 +108,9 @@ int main(){
 		}
 	}
 	return 0;
-}*/
+}
 
-
+/*
 int main()
 {
 	//STinsert(&avl, newItem("8#campeao","campeao" ,8));
@@ -146,11 +144,10 @@ int main()
   	hashInit(498257); //numero primo
   	hashInsert(a);
   	hashInsert(newItem("6#swag", "#swag",6));
-  	hashInsert(newItem("6#swag", "#swag",6));
-  	hashInsert(newItem("6#swag", "#swag",6));
   	b=hashSearch("#swag");
   	printf("%d\n",b==NULL);
 	
 	//print(avl);
 	return 0;	
 }
+*/
