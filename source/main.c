@@ -14,9 +14,9 @@ link avl;
 int main(){
 	bool le_hashtag = false;
 	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0;
-	char c, palavra[MAXCHAR];
+	char c, palavra[MAXCHAR], *p;
 	Item tag = (Item)malloc(sizeof(struct hashtags));
-	Item aux;
+	Item aux = (Item)malloc(sizeof(struct hashtags));
 
 	hashInit(100);
 	STinit(&avl);
@@ -27,31 +27,34 @@ int main(){
 			case 'a':
 				c = getchar();
 				
-				while((c = getchar()!='\n') && len_mensagem < 140)
+				while((c = getchar()))	
 				{
 					len_mensagem++;
 					
 					if(e_caracter_branco(c) && le_hashtag){
 						le_hashtag = false;
 						palavra[indice] = '\0';
+						p = palavra;
+						p++;
 						indice = 0;
 						tag->hashtag = strdup(palavra);
 						tag->rep = 1;
-						aux = hashSearch(tag);
+						aux = hashSearch(tag->hashtag);
 
 						if (aux == NULLitem){
 							contador++;
 							repeticoes++;
 							tag->item = strdup(criaItem(tag->hashtag, tag->rep));
 							hashInsert(tag);
-							STinsert(&avl, newItem(tag->item, tag->hashtag, tag->rep));
+							STinsert(&avl, newItem(tag->item, p, tag->rep));
 						}
 						else{
-							STdelete(&avl, tag->item);
+							printf("%s %s\n", aux->item, palavra);
+							STdelete(&avl, aux->item);
 							aux->rep++;
 							repeticoes++;
 							aux->item = strdup(criaItem(aux->hashtag, aux->rep));
-							STinsert(&avl, newItem(aux->item, aux->hashtag, aux->rep));
+							STinsert(&avl, newItem(aux->item,p, aux->rep));
 						}
 					}
 					if(le_hashtag){
@@ -65,36 +68,13 @@ int main(){
 						le_hashtag = true;
 						palavra[indice++] = c;
 					}
-				}
-				printf("%d", len_mensagem);
-				puts("acabou");
-				if (le_hashtag){
-					le_hashtag = false;
-					palavra[indice] = '\0';
-					indice = 0;
-					tag->hashtag = strdup(palavra);
-					tag->rep = 1;
-					aux = hashSearch(tag);
-
-					if (aux == NULLitem){
-						contador++;
-						repeticoes++;
-						tag->item = strdup(criaItem(tag->hashtag, tag->rep));
-						hashInsert(tag);
-						STinsert(&avl, newItem(tag->item, tag->hashtag, tag->rep));
-					}
-					else{
-						STdelete(&avl, tag->item);
-						aux->rep++;
-						repeticoes++;
-						aux->item = strdup(criaItem(aux->hashtag, aux->rep));
-						STinsert(&avl, newItem(aux->item, aux->hashtag, aux->rep));
-					}
+					if (c == '\n' || len_mensagem == MAXCHAR)
+						break;
 				}
 				break;
 
 			case 's':
-				printf("%d %d", contador, repeticoes);
+				printf("%d %d\n", contador, repeticoes);
 				break;
 
 			case 'm':
@@ -102,6 +82,7 @@ int main(){
 				break;
 
 			case 'l':
+				STsort(avl,visitItem);
 				break;
 		}
 		if (c == 'x'){
@@ -114,27 +95,26 @@ int main(){
 /*
 int main()
 {
-	STinsert(&avl, newItem("8#campeao","campeao" ,8));
-	STinsert(&avl, newItem("9#portugal","portugal" ,9));
-	STinsert(&avl, newItem("9#benfica","benfica", 9));
-	STinsert(&avl, newItem("0#lolitos","lolitos", 0));
-	STinsert(&avl, newItem("0#phahaha","phahaha", 0));
-	STinsert(&avl, newItem("1#nope", "nope",1));
-	STinsert(&avl, newItem("6#swag", "swag",6));
-	STinsert(&avl, newItem("0#nao", "nao",0));
-	STinsert(&avl, newItem("0#yolo", "yolo",0));
-	STinsert(&avl, newItem("0#nbavsdnbasb", "nbavsdnbasb",0));
-	STinsert(&avl, newItem("0#aaaa", "aaaa",0));
-	STinsert(&avl, newItem("0#yoloo", "yoloo",0));
-	STsort(avl,visitItem);
-	printf("ASDASDSADSADSADSADSDADASDSADASDAS\n");
-	STdelete(&avl,"9#portugal");
-	STdelete(&avl,"0#aaaa");
-	STdelete(&avl,"0#yoloo");
-	STdelete(&avl,"0#nbavsdnbasb");
-	STsort(avl,visitItem);
-	STfree(&avl);
-	/*Item a,b;
+	//STinsert(&avl, newItem("8#campeao","campeao" ,8));
+	//STinsert(&avl, newItem("9#portugal","portugal" ,9));
+	//STinsert(&avl, newItem("9#benfica","benfica", 9));
+	//STinsert(&avl, newItem("0#lolitos","lolitos", 0));
+	//STinsert(&avl, newItem("0#phahaha","phahaha", 0));
+	//STinsert(&avl, newItem("1#nope", "nope",1));
+	//STinsert(&avl, newItem("6#swag", "swag",6));
+	//STinsert(&avl, newItem("0#nao", "nao",0));
+	//STinsert(&avl, newItem("0#yolo", "yolo",0));
+	//STinsert(&avl, newItem("0#nbavsdnbasb", "nbavsdnbasb",0));
+	//STinsert(&avl, newItem("0#aaaa", "aaaa",0));
+	//STinsert(&avl, newItem("0#yoloo", "yoloo",0));
+	//STsort(avl,visitItem);
+	//printf("ASDASDSADSADSADSADSDADASDSADASDAS\n");
+	//STdelete(&avl,"9#portugal");
+	//STdelete(&avl,"0#aaaa");
+	//STdelete(&avl,"0#yoloo");
+	//STdelete(&avl,"0#nbavsdnbasb");
+	//STsort(avl,visitItem);
+	//STfree(&avl);
 	Item a,b;
   	char *achas="#ola";
   	char *achas2="5#ola";
