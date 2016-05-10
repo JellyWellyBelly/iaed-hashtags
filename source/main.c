@@ -102,6 +102,7 @@ int main(){
 				break;
 
 			case 'l':
+				STsort(avl,visitItem);
 				break;
 		}
 		if (c == 'x'){
