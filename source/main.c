@@ -7,16 +7,16 @@
 #include "avl.h"
 #include "auxiliares.h"
 
-#define MAXCHAR 140
+#define MAXCHAR 142
 
 link avl;
 
 /*
 int main(){
 	bool le_hashtag = false;
-	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0;
-	char c, palavra[MAXCHAR], *p;
-	struct hashtags tag;
+	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0, max_rep = 0;
+	char c, palavra[MAXCHAR], *p, *max_hashtag;
+	//Item tag = (Item)malloc(sizeof(struct hashtags));
 	Item aux = (Item)malloc(sizeof(struct hashtags));
 
 	hashInit(100);
@@ -29,7 +29,7 @@ int main(){
 				c = getchar();
 				
 				while((c = getchar()))
-				{
+				{ 
 					len_mensagem++;
 					
 					if(e_caracter_branco(c) && le_hashtag){
@@ -41,21 +41,36 @@ int main(){
 						aux = hashSearch(palavra);
 
 						if (aux == NULLitem){
-							puts("entrou 1");
 							printf("%s\n", palavra);
 							contador++;
 							repeticoes++;
-							tag.hashtag = strdup(palavra);
-							tag.rep = 1;
-							tag.item = strdup(criaItem(tag.hashtag, tag.rep));
-							hashInsert(&tag);
-							STinsert(&avl, newItem(tag.item, p, tag.rep));
+
+							//verifica a hashtag mais popular
+							if (1 > max_rep){
+								max_rep = 1;
+								max_hashtag = strdup(palavra);
+							}
+							else if (1 == max_rep && strcmp(palavra, max_hashtag) < 0){
+								max_hashtag = palavra;
+							}
+
+							hashInsert(newItem(criaItem(palavra, 1), palavra, 1));
+							STinsert(&avl, newItem(criaItem(palavra, 1), p, 1));
 						}
 						else{
-							puts("entrou 2");
 							printf("%s %d %s - %s\n", aux->item, aux->rep, aux->hashtag, palavra);
 							STdelete(&avl, aux->item);
 							aux->rep++;
+
+							//verifica a hashtag mais popular
+							if (aux->rep > max_rep){
+								max_rep = aux->rep;
+								max_hashtag = aux->hashtag;
+							}
+							else if (aux->rep == max_rep && strcmp(aux->hashtag, max_hashtag) < 0){
+								max_hashtag = aux->hashtag;
+							}
+
 							repeticoes++;
 							aux->item = strdup(criaItem(aux->hashtag, aux->rep));
 							STinsert(&avl, newItem(aux->item, p, aux->rep));
@@ -82,7 +97,7 @@ int main(){
 				break;
 
 			case 'm':
-				//printf("%s %d", popular->hashtag, popular->rep);
+				printf("%s %d\n", max_hashtag, max_rep);
 				break;
 
 			case 'l':
@@ -91,6 +106,7 @@ int main(){
 		}
 		if (c == 'x'){
 			STfree(&avl);
+			return 0;
 		}
 	}
 	return 0;
