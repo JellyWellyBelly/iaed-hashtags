@@ -15,7 +15,7 @@ int main(){
 	bool le_hashtag = false;
 	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0;
 	char c, palavra[MAXCHAR], *p;
-	Item tag = (Item)malloc(sizeof(struct hashtags));
+	struct hashtags tag;
 	Item aux = (Item)malloc(sizeof(struct hashtags));
 
 	hashInit(100);
@@ -27,34 +27,37 @@ int main(){
 			case 'a':
 				c = getchar();
 				
-				while((c = getchar()))	
+				while((c = getchar()))
 				{
 					len_mensagem++;
 					
 					if(e_caracter_branco(c) && le_hashtag){
 						le_hashtag = false;
 						palavra[indice] = '\0';
+						indice = 0;
 						p = palavra;
 						p++;
-						indice = 0;
-						tag->hashtag = strdup(palavra);
-						tag->rep = 1;
-						aux = hashSearch(tag->hashtag);
+						aux = hashSearch(palavra);
 
 						if (aux == NULLitem){
+							puts("entrou 1");
+							printf("%s\n", palavra);
 							contador++;
 							repeticoes++;
-							tag->item = strdup(criaItem(tag->hashtag, tag->rep));
-							hashInsert(tag);
-							STinsert(&avl, newItem(tag->item, p, tag->rep));
+							tag.hashtag = strdup(palavra);
+							tag.rep = 1;
+							tag.item = strdup(criaItem(tag.hashtag, tag.rep));
+							hashInsert(&tag);
+							STinsert(&avl, newItem(tag.item, p, tag.rep));
 						}
 						else{
-							printf("%s %s\n", aux->item, palavra);
+							puts("entrou 2");
+							printf("%s %d %s - %s\n", aux->item, aux->rep, aux->hashtag, palavra);
 							STdelete(&avl, aux->item);
 							aux->rep++;
 							repeticoes++;
 							aux->item = strdup(criaItem(aux->hashtag, aux->rep));
-							STinsert(&avl, newItem(aux->item,p, aux->rep));
+							STinsert(&avl, newItem(aux->item, p, aux->rep));
 						}
 					}
 					if(le_hashtag){
