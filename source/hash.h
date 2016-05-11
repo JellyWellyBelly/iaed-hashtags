@@ -6,8 +6,8 @@
 
 #define null(A) (key(st[A]) == keyNull(NULLitem))
 
-static int N, M;
-static Item *st;
+//static int N, M;
+Item *st;
 
 void hashExpand();
 void hashInit(int max);

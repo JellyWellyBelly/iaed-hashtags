@@ -72,48 +72,40 @@ link AVLbalance(link h) {
 return h; }
 
 
-link deleteR(link h, Key k)
-{
-    char * splited1;
-    char achas[500];
-    char reptostr[30];
-    if (h!=NULL){
-        strcpy(achas,k);
-        splited1=strtok(achas,"#");
-        sprintf(reptostr, "%d", h->item->rep);
-    }
-    if (h==NULL) return h;
-    else if (less(reptostr,splited1)) 
-            h->l=deleteR(h->l,k) ;
-    else if (greater(reptostr,splited1))
-            h->r=deleteR(h->r,k) ;
-    else {
-        splited1=strtok(NULL,"#");
-        if(less(h->item->hashtag,splited1))
-            h->r=deleteR(h->r,k) ;
-        else if(greater(h->item->hashtag,splited1))
-            h->l=deleteR(h->l,k) ;
-        else
-        if (h->l !=NULL && h->r !=NULL && eq(h->item->hashtag,splited1)){
-                link aux=max(h->l);
-                Item x; 
-                x=h->item; 
-                h->item=aux->item; 
-                aux->item=x;
-                h->l= deleteR(h->l, key(aux->item));
-        } 
-        else 
-        { 
-            link aux=h;
-            if (h->l == NULL && h->r == NULL) h=NULL;
-            else if (h->l==NULL) h=h->r;
-            else h=h->l;
-            deleteItem(aux->item);
-            free(aux);
-        }
-    }
-    h=AVLbalance(h);
-    return h;
+int less2(Key k1, Key k2){
+ if(atoi(k1)==atoi(k2))
+   return strcmp(k1,k2)<0;
+ else
+   return atoi(k2)-atoi(k1)<0;
+}
+
+link deleteR(link h, Key k) {
+ Item x;
+
+ if (h==NULL) return h;
+ else if (less2(k, key(h->item))) h->l=deleteR(h->l,k);
+ else if (less2(key(h->item), k)) h->r=deleteR(h->r,k) ;
+ else{
+   if (h->l != NULL && h->r != NULL){
+     link aux = max(h->l);
+
+     x = h->item;
+     h->item = aux->item;
+     aux->item=x;
+
+     h->l = deleteR(h->l, key(aux->item));
+   } else {
+     link aux=h;
+     if (h->l == NULL && h->r == NULL) h = NULL;
+     else if (h->l == NULL) h = h->r;
+     else h = h->l;
+     deleteItem(aux->item);
+     free(aux);
+   }
+ }
+ h = AVLbalance(h);
+
+ return h;
 }
 
 link rotR(link h)

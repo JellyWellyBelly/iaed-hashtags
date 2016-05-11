@@ -6,7 +6,7 @@
 
 typedef struct STnode* link;
 struct STnode { Item item; link l, r; int height;};
-static link head;
+//static link head;
 link avl;
 
 void STinit(link*);

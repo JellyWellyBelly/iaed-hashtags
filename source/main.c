@@ -18,7 +18,7 @@ int main(){
 	//Item tag = (Item)malloc(sizeof(struct hashtags));
 	Item aux = (Item)malloc(sizeof(struct hashtags));
 
-	hashInit(119551);
+	hashInit(7);
 	STinit(&avl);
 
 	while (1){
@@ -62,7 +62,7 @@ int main(){
 						else{
 							//printf("############################################antes: \n");
 							//STsort(avl,visitItem);
-							printf("A APAGAAAAAAAAAAAAAAAAAAAAARRRRR:%s\n",aux->item);
+							//printf("A APAGAAAAAAAAAAAAAAAAAAAAARRRRR:%s\n",aux->item);
 							STdelete(&avl, aux->item);
 							//printf("############################################depois: \n");
 							//STsort(avl,visitItem);
@@ -114,6 +114,7 @@ int main(){
 		}
 		if (c == 'x'){
 			STfree(&avl);
+			free(aux);
 			return 0;
 		}
 	}
