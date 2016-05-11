@@ -18,7 +18,7 @@ int main(){
 	//Item tag = (Item)malloc(sizeof(struct hashtags));
 	Item aux = (Item)malloc(sizeof(struct hashtags));
 
-	hashInit(7);
+	hashInit(119551);
 	STinit(&avl);
 
 	while (1){
@@ -114,7 +114,6 @@ int main(){
 		}
 		if (c == 'x'){
 			STfree(&avl);
-			free(aux);
 			return 0;
 		}
 	}
