@@ -76,7 +76,7 @@ link deleteR(link h, Key k)
 {
     char * splited1;
     char achas[500];
-    char reptostr[20];
+    char reptostr[30];
     if (h!=NULL){
         strcpy(achas,k);
         splited1=strtok(achas,"#");
@@ -95,12 +95,12 @@ link deleteR(link h, Key k)
             h->l=deleteR(h->l,k) ;
         else
         if (h->l !=NULL && h->r !=NULL && eq(h->item->hashtag,splited1)){
-                link aux=max(h->r);
+                link aux=max(h->l);
                 Item x; 
                 x=h->item; 
                 h->item=aux->item; 
                 aux->item=x;
-                h->r= deleteR(h->r, key(aux->item));
+                h->l= deleteR(h->l, key(aux->item));
         } 
         else 
         { 

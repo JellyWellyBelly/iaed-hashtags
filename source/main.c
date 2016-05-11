@@ -18,7 +18,7 @@ int main(){
 	//Item tag = (Item)malloc(sizeof(struct hashtags));
 	Item aux = (Item)malloc(sizeof(struct hashtags));
 
-	hashInit(100);
+	hashInit(119551);
 	STinit(&avl);
 
 	while (1){
@@ -50,30 +50,31 @@ int main(){
 								max_hashtag = strdup(palavra);
 							}
 							else if (1 == max_rep && strcmp(palavra, max_hashtag) < 0){
-								max_hashtag = palavra;
+								max_hashtag = strdup(palavra);
 							}
 
-							STsort(avl,visitItem);
+							//STsort(avl,visitItem);
 							hashInsert(newItem(criaItem(palavra, 1), p, 1));
 							STinsert(&avl, newItem(criaItem(palavra, 1), p, 1));
-							STsort(avl,visitItem);
+							//STsort(avl,visitItem);
 
 						}
 						else{
-							printf("antes: \n");
-							STsort(avl,visitItem);
+							//printf("############################################antes: \n");
+							//STsort(avl,visitItem);
+							printf("A APAGAAAAAAAAAAAAAAAAAAAAARRRRR:%s\n",aux->item);
 							STdelete(&avl, aux->item);
-							printf("depois: \n");
-							STsort(avl,visitItem);
+							//printf("############################################depois: \n");
+							//STsort(avl,visitItem);
 							aux->rep++;
 
 							//verifica a hashtag mais popular
 							if (aux->rep > max_rep){
 								max_rep = aux->rep;
-								max_hashtag = palavra;
+								max_hashtag = strdup(palavra);
 							}
 							else if (aux->rep == max_rep && strcmp(palavra, max_hashtag) < 0){
-								max_hashtag = palavra;
+								max_hashtag = strdup(palavra);
 							}
 
 							repeticoes++;

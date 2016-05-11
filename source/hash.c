@@ -1,5 +1,6 @@
 #include "hash.h"
 
+static int N, M;
 
 void hashInit(int max) {
   int i;

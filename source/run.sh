@@ -11,8 +11,8 @@
 ./main < ../testes_publicos/test07.in > ../testes_publicos/10.txt
 ./main < ../testes_publicos/test08.in > ../testes_publicos/11.txt 
 diff ../testes_publicos/exemplo01.out ../testes_publicos/1.txt 
-diff ../testes_publicos/exemplo01.out ../testes_publicos/2.txt 
-diff ../testes_publicos/exemplo01.out ../testes_publicos/3.txt 
+diff ../testes_publicos/exemplo02.out ../testes_publicos/2.txt 
+diff ../testes_publicos/exemplo03.out ../testes_publicos/3.txt 
 diff ../testes_publicos/test01.out ../testes_publicos/4.txt 
 diff ../testes_publicos/test02.out ../testes_publicos/5.txt 
 diff ../testes_publicos/test03.out ../testes_publicos/6.txt 
