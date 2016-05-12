@@ -1,5 +1,5 @@
 #!/bin/bash  
-./main < ../testes_publicos/exemplo01.in > ../testes_publicos/1.txt 
+./main < ../testes_publicos/exemplo01.in > ../testes_publicos/1.txt
 ./main < ../testes_publicos/exemplo02.in > ../testes_publicos/2.txt 
 ./main < ../testes_publicos/exemplo03.in > ../testes_publicos/3.txt 
 ./main < ../testes_publicos/test01.in > ../testes_publicos/4.txt

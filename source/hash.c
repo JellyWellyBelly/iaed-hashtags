@@ -1,82 +1,65 @@
 #include "hash.h"
 
-static int N, M;
-
-void hashInit(int max) {
-  int i;
-
-  N = 0; 
-  M = 2 * max;
-
-  st = (Item*)malloc(M*sizeof(Item));
-
-  for (i = 0; i < M; i++) 
-	 st[i] = NULLitem; 
-}
+static int M;
 
 int hash(char *v, int M)
 {
-  int h, a = 31415, b = 27183; //MUDAR PRIMOS
+  int h, a = 31415, b = 27183;
   for (h = 0; *v != '\0'; v++, a = a*b % (M-1))
 	h = (a*h + *v) % M;
-  return h; 
+return h; }
+
+void hashInit(int max) {
+  int i;
+  M = max;
+  heads = (linkH*)malloc(M*sizeof(linkH));
+  for (i = 0; i < M; i++) heads[i] = NULL;
 }
 
-void hashInsert(Item item) {
-  Key v = key2(item);
+linkH NEW2(Item item){
+  linkH x = (linkH)malloc(sizeof(struct nodeH));
+  x->conteudo = item;
+  x->next = NULL;
+  return x;
+}
+
+linkH insertBeginList(linkH head, Item item){
+  linkH x = NEW2(item);
+  x->next = head;
+  return x;
+}
+
+Item searchList(linkH head, char* string){
+  linkH t;
+  for (t = head; t != NULL; t = t->next)
+		if (!(strcmp(t->conteudo->hashtag, string)))
+	  	return t->conteudo;
+  return NULL;
+}
+
+void hashInsert(Item item){
+  int i = hash(key2(item), M);
+  heads[i] = insertBeginList(heads[i], item);
+}
+
+Item hashSearch(Key v){
   int i = hash(v, M);
-
-  while (!null(i)) 
-	i = (i+1) % M;
-
-  st[i] = item;
-
-  if (N++ > M/2) 
-	hashExpand();
+  return searchList(heads[i], v);
 }
 
-void hashExpand() {
-  int i; 
-  Item *t = st;
+void hashFree(){
+  int i;
 
-  hashInit(M+M);
-
-  for (i = 0; i < M/2; i++)
-	if (key2(t[i]) != keyNull(NULLitem))
-	  hashInsert(t[i]);
-  free(t);
+  for (i = 0; i < M; i++)
+   if (heads[i] != NULL)
+		deleteHash(heads[i]);
+  free(heads);
 }
 
-Item hashSearch(Key v)
-{ 
-  int i = hash(v, M);
-
-  while (!null(i))
-	if (eq(v, key2(st[i])))
-	  return st[i];
-	else
-	  i = (i+1) % M;
-
-  return NULLitem;
-}
-
-void hashDelete(Item item)
-{ 
-  int j, i = hash(key2(item), M);
-  Item v;
-
-  while (!null(i))
-	if (eq(key2(item), key2(st[i]))) break;
-	else i = (i+1) % M;
-
-  if (null(i)) return;
-
-  st[i] = NULLitem; 
-
-  N--;
-  for (j = (i+1) % M; !null(j); j = (j+1) % M, N--) {
-	v = st[j]; 
-	st[j] = NULLitem;
-	hashInsert(v);
-  }
+void deleteHash(linkH head){
+  linkH t;
+  for (t = head; t != NULL; t = t->next)
+	if (t->conteudo != NULL)
+	  return deleteItem(t->conteudo);
+  free(head);
 }

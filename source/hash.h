@@ -6,15 +6,17 @@
 
 #define null(A) (key(st[A]) == keyNull(NULLitem))
 
-//static int N, M;
-Item *st;
+linkH *heads;
 
-void hashExpand();
-void hashInit(int max);
+void insert(linkH x, Item item);
 int hash(char *v, int M);
+void hashInit(int max);
+linkH NEW2(Item item);
+linkH insertBeginList(linkH head, Item item);
+Item searchList(linkH head, char* string);
 void hashInsert(Item item);
-void hashExpand();
 Item hashSearch(Key v);
-void hashDelete(Item item);
+void hashFree();
+void deleteHash(linkH head);
 
 #endif

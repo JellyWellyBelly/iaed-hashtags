@@ -12,6 +12,11 @@ int rep;
 char* hashtag;
 }* Item;
 
+typedef struct nodeH{
+	Item conteudo;
+	struct nodeH *next;
+}* linkH;
+
 
 #define NULLitem NULL
 #define key(a) (a == NULL ? "" : a->item)

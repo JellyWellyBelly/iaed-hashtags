@@ -15,10 +15,9 @@ int main(){
 	bool le_hashtag = false;
 	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0, max_rep = 0;
 	char c, palavra[MAXCHAR], *p, *max_hashtag = "";
-	//Item tag = (Item)malloc(sizeof(struct hashtags));
-	Item aux = (Item)malloc(sizeof(struct hashtags));
+	Item aux;
 
-	hashInit(119551);
+	hashInit(50147);
 	STinit(&avl);
 
 	while (1){
@@ -53,19 +52,15 @@ int main(){
 								max_hashtag = strdup(palavra);
 							}
 
-							//STsort(avl,visitItem);
+							//insere = newItem(criaItem(palavra, 1), p, 1);
+							//hashInsert(insere);
+							//STinsert(&avl, insere);
 							hashInsert(newItem(criaItem(palavra, 1), p, 1));
 							STinsert(&avl, newItem(criaItem(palavra, 1), p, 1));
-							//STsort(avl,visitItem);
 
 						}
 						else{
-							//printf("############################################antes: \n");
-							//STsort(avl,visitItem);
-							//printf("A APAGAAAAAAAAAAAAAAAAAAAAARRRRR:%s\n",aux->item);
 							STdelete(&avl, aux->item);
-							//printf("############################################depois: \n");
-							//STsort(avl,visitItem);
 							aux->rep++;
 
 							//verifica a hashtag mais popular
@@ -80,6 +75,8 @@ int main(){
 							repeticoes++;
 							aux->item = strdup(criaItem(palavra, aux->rep));
 
+							//insere = newItem(aux->item, p, aux->rep);
+							//STinsert(&avl, insere);
 							STinsert(&avl, newItem(aux->item, p, aux->rep));
 						}
 					}
@@ -114,6 +111,7 @@ int main(){
 		}
 		if (c == 'x'){
 			STfree(&avl);
+			hashFree();
 			return 0;
 		}
 	}
