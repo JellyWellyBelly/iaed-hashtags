@@ -59,7 +59,6 @@ void hashFree(){
 void deleteHash(linkH head){
   linkH t;
   for (t = head; t != NULL; t = t->next)
-	if (t->conteudo != NULL)
-	  return deleteItem(t->conteudo);
+	   deleteItem(t->conteudo);
   free(head);
 }

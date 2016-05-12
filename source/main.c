@@ -17,7 +17,7 @@ int main(){
 	char c, palavra[MAXCHAR], *p, *max_hashtag = "";
 	Item aux;
 
-	hashInit(50147);
+	hashInit(100109);
 	STinit(&avl);
 
 	while (1){
