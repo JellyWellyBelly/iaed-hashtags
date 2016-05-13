@@ -162,6 +162,7 @@ void sortR(link h, void (*visit)(Item))
     visit(h->item);
     sortR(h->r, visit);
 }
+
 void STsort(link head, void (*visit)(Item))
 {
     sortR(head, visit);
@@ -197,13 +198,12 @@ void STfree(link*head)
     *head=freeR(*head);
 }
 
-int ordenaHashtags(const void *a, const void *b) { //VIOLA ABSTRACAO
-  hashtags *ia = (hashtags *)a;
-  hashtags *ib = (hashtags *)b;
-  return ia->rep > ib->rep;
-} 
 
-void Sort(){
+void T2A(link h,Item *vec,int *i){
+    if (h == NULL)
+        return;
+    T2A(h->l, vec,i);
+    vec[(*i)++]=h->item;
+    T2A(h->r, vec,i);
 
-  qsort(aeroportos, numero_aeroportos, sizeof(Aeroporto), ordenaHashtags);
 }

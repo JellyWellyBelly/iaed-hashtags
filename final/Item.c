@@ -18,4 +18,3 @@ void visitItem(Item a)
 {
     printf("#%s %d\n",a->hashtag,a->rep);
 }
-

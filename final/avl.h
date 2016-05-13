@@ -25,4 +25,5 @@ link rotLR(link h);
 link rotRL(link h);
 int Balance(link h);
 link insertR(link h, Item item);
+void T2A(link h,Item *vec,int *i);
 #endif

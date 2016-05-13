@@ -10,12 +10,20 @@
 
 link avl;
 
+int ordena(const void *a, const void *b) { 
+	Item *ia = (Item *)a;
+	Item *ib = (Item *)b;
+	if((*ia)->rep == (*ib)->rep)
+		return strcmp((*ia)->hashtag, (*ib)->hashtag);
+	else
+		return (*ia)->rep < (*ib)->rep;
+} 
+
 int main(){
 	bool le_hashtag = false;
 	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0, max_rep = 0;
 	char c, palavra[MAXCHAR], *p, *max_hashtag = "";
 	Item aux;
-
 	STinit(&avl);
 
 	while (1){
@@ -44,10 +52,10 @@ int main(){
 							//verifica a hashtag mais popular
 							if (1 > max_rep){
 								max_rep = 1;
-								max_hashtag = strdup(palavra);
+								max_hashtag = strdup(p);
 							}
-							else if (1 == max_rep && strcmp(palavra, max_hashtag) < 0){
-								max_hashtag = strdup(palavra);
+							else if (1 == max_rep && strcmp(p, max_hashtag) < 0){
+								max_hashtag = strdup(p);
 							}
 
 							//insere = newItem(criaItem(palavra, 1), p, 1);
@@ -64,10 +72,10 @@ int main(){
 							//verifica a hashtag mais popular
 							if (aux->rep > max_rep){
 								max_rep = aux->rep;
-								max_hashtag = strdup(palavra);
+								max_hashtag = strdup(p);
 							}
-							else if (aux->rep == max_rep && strcmp(palavra, max_hashtag) < 0){
-								max_hashtag = strdup(palavra);
+							else if (aux->rep == max_rep && strcmp(p, max_hashtag) < 0){
+								max_hashtag = strdup(p);
 							}
 
 							repeticoes++;
@@ -103,12 +111,21 @@ int main(){
 				break;
 
 			case 'l':
-				STsort(avl,visitItem);
+				{
+				Item *vec;
+				vec=(Item*)malloc(sizeof(Item)*contador);
+				int a=0;
+				T2A(avl,vec,&a);
+				qsort(vec, contador, sizeof(Item), ordena);
+				for(int ii=0;ii<contador;ii++){
+					printf("#%s %d\n",vec[ii]-> hashtag,vec[ii]->rep);
+				}
+				free(vec);
 				break;
+			}
 		}
 		if (c == 'x'){
 			STfree(&avl);
-			//hashFree();
 			return 0;
 		}
 	}
