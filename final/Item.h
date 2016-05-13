@@ -7,19 +7,12 @@
 typedef char* Key;
 
 typedef struct hashtags{
-char* item; 
 int rep;
 char* hashtag;
 }* Item;
 
-typedef struct nodeH{
-	Item conteudo;
-	struct nodeH *next;
-}* linkH;
-
-
 #define NULLitem NULL
-#define key(a) (a == NULL ? "" : a->item)
+#define key(a) (a == NULL ? "" : a->hashtag)
 #define keyNull(a) (a == NULL ? "" : "")
 
 
@@ -31,7 +24,7 @@ typedef struct nodeH{
 #define exch(A, B) { Item t = A; A = B; B = t; }
 #define compexch(A, B) if (less(B, A)) exch(A, B)	
 
-Item newItem(char*item, char *hashtag,int rep);
+Item newItem(char *hashtag,int rep);
 void deleteItem(Item a);
 void visitItem(Item a);
 

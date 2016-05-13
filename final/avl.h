@@ -15,7 +15,7 @@ Item STsearch(link head, Key v);
 Item searchR(link h, Key v);
 void STinsert(link*,Item);
 void STdelete(link*,Key);
-void STsort(link,void (*visit)(Item));
+void STsort(link ,void (*visit)(Item));
 void STfree(link*);
 void STinit(link*);
 link NEW(Item item, link l, link r);

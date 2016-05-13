@@ -35,7 +35,7 @@ int main(){
 						indice = 0;
 						p = palavra;
 						p++;
-						aux = hashSearch(p);
+						aux = STsearch(avl, p);
 
 						if (aux == NULLitem){
 							contador++;
@@ -53,12 +53,12 @@ int main(){
 							//insere = newItem(criaItem(palavra, 1), p, 1);
 							//hashInsert(insere);
 							//STinsert(&avl, insere);
-							hashInsert(newItem(criaItem(palavra, 1), p, 1));
-							STinsert(&avl, newItem(criaItem(palavra, 1), p, 1));
+							//hashInsert(newItem(criaItem(palavra, 1), p, 1));
+							STinsert(&avl, newItem(p, 1));
 
 						}
 						else{
-							STdelete(&avl, aux->item);
+							//STdelete(&avl, aux->item);
 							aux->rep++;
 
 							//verifica a hashtag mais popular
@@ -71,11 +71,10 @@ int main(){
 							}
 
 							repeticoes++;
-							aux->item = strdup(criaItem(palavra, aux->rep));
 
 							//insere = newItem(aux->item, p, aux->rep);
 							//STinsert(&avl, insere);
-							STinsert(&avl, newItem(aux->item, p, aux->rep));
+							//STinsert(&avl, p, aux->rep);
 						}
 					}
 					if(le_hashtag){
@@ -109,7 +108,7 @@ int main(){
 		}
 		if (c == 'x'){
 			STfree(&avl);
-			hashFree();
+			//hashFree();
 			return 0;
 		}
 	}
@@ -128,7 +127,7 @@ int main()
 	//STinsert(&avl, newItem("6#swag", "swag",6));
 	//STinsert(&avl, newItem("0#nao", "nao",0));
 	//STinsert(&avl, newItem("0#yolo", "yolo",0));
-	//STinsert(&avl, newItem("0#nbavsdnbasb", "nbavsdnbasb",0));
+	//STinsert(&avl, newItem("3nbavsdnbasb", "nbavsdnbasb",0));
 	//STinsert(&avl, newItem("0#aaaa", "aaaa",0));
 	//STinsert(&avl, newItem("0#yoloo", "yoloo",0));
 	//STsort(avl,visitItem);
