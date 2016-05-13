@@ -59,15 +59,8 @@ int main(){
 							}
 							else
 								max_hashtag = STsearch(avl, p);
-
-							//insere = newItem(criaItem(palavra, 1), p, 1);
-							//hashInsert(insere);
-							//STinsert(&avl, insere);
-							//hashInsert(newItem(criaItem(palavra, 1), p, 1));
-
 						}
 						else{
-							//STdelete(&avl, aux->item);
 							aux->rep++;
 
 							//verifica a hashtag mais popular
@@ -79,10 +72,6 @@ int main(){
 							}
 
 							repeticoes++;
-
-							//insere = newItem(aux->item, p, aux->rep);
-							//STinsert(&avl, insere);
-							//STinsert(&avl, p, aux->rep);
 						}
 					}
 					if(le_hashtag){
@@ -127,7 +116,6 @@ int main(){
 		}
 		if (c == 'x'){
 			STfree(&avl);
-			free(vec);
 			return 0;
 		}
 	}
