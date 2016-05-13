@@ -71,41 +71,27 @@ link AVLbalance(link h) {
 
 return h; }
 
-
-int less2(Key k1, Key k2){
- if(atoi(k1)==atoi(k2))
-   return strcmp(k1,k2)<0;
- else
-   return atoi(k2)-atoi(k1)<0;
-}
-
 link deleteR(link h, Key k) {
- Item x;
-
- if (h==NULL) return h;
- else if (less2(k, key(h->item))) h->l=deleteR(h->l,k);
- else if (less2(key(h->item), k)) h->r=deleteR(h->r,k) ;
- else{
-   if (h->l != NULL && h->r != NULL){
-     link aux = max(h->l);
-
-     x = h->item;
-     h->item = aux->item;
-     aux->item=x;
-
-     h->l = deleteR(h->l, key(aux->item));
-   } else {
-     link aux=h;
-     if (h->l == NULL && h->r == NULL) h = NULL;
-     else if (h->l == NULL) h = h->r;
-     else h = h->l;
-     deleteItem(aux->item);
-     free(aux);
-   }
- }
- h = AVLbalance(h);
-
- return h;
+    if (h==NULL) return h;
+    else if (less(k, key(h->item))) h->l=deleteR(h->l,k);
+    else if (less(key(h->item), k)) h->r=deleteR(h->r,k) ;
+    else{
+        if (h->l !=NULL && h->r !=NULL){
+            link aux=max(h->l);
+            {Item x; x=h->item; h->item=aux->item; aux->item=x;}
+            h->l= deleteR(h->l, key(aux->item));
+}
+else {
+            link aux=h;
+            if (h->l == NULL && h->r == NULL) h=NULL;
+            else if (h->l==NULL) h=h->r;
+            else h=h->l;
+            deleteItem(aux->item);
+            free(aux);
+}
+}
+    h=AVLbalance(h);
+  return h;
 }
 
 link rotR(link h)
@@ -156,25 +142,15 @@ void STdelete(link*head, Key k){
 }
 
 
-//specialCompare(h->item->item,item->item)
 link insertR(link h, Item item)
 {
-   if (h == NULL)
-       return NEW(item, NULL, NULL);
-   if (h->item->rep < item->rep)
-       h->l = insertR(h->l, item);
-   else if (h->item->rep > item->rep){
-       h->r = insertR(h->r, item);
-   }
-   else{
-       if (greater(h->item->hashtag, item->hashtag)){
-           h->l = insertR(h->l, item);   
-       }
-       else
-           h->r = insertR(h->r, item);   
-   }
-   h=AVLbalance(h);
-
+    if (h == NULL)
+        return NEW(item, NULL, NULL);
+    if (less(key(item), key(h->item)))
+        h->l = insertR(h->l, item);
+    else
+        h->r = insertR(h->r, item);
+    h=AVLbalance(h);
 return h; }
 
 
