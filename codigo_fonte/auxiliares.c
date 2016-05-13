@@ -1,10 +1,27 @@
+/******************************************************************************************
+* File Name:   avl.c
+* Author:      Goncalo Marques (84719) / Manuel Sousa (84740)
+* Revision:
+* NAME:        Hashtags - IST/IAED - 2015/2016 2º Semestre
+* SYNOPSIS:    #include "auxiliares.h" - prototipos e constantes das funcoes auxiliares
+* DESCRIPTION: funcoes auxiliares que suportam a funcao main (main.c)
+* DIAGNOSTICS: tested
+*****************************************************************************************/
 #include "auxiliares.h"
 
+/******************************************************************************************
+* e_caracter_branco()
+*
+* Arguments:	c:  caracter
+*
+* Returns: bool balblalbalballalbalblablalbalblalallalbaal
+* Description:  MUDAAAAAAAR
+*****************************************************************************************/
 bool e_caracter_branco(char c){
 	int i = 0;
 
 	for (; i < NUMSEP; i++){
-		if (separators[i] == c)
+		if (separadores[i] == c)
 			return true;
 	}
 	return false;

@@ -1,16 +1,15 @@
 /******************************************************************************
 * File Name: auxiliares.h
-* Author:    Goncalo / Manuel
+* Author:      Goncalo Marques (84719) / Manuel Sousa (84740)
 * Revision:
 * NAME
 *      auxiliares - prototipos
-* SYNOPSIS
-*      #include <stdio.h>
-*      #include <stdlib.h>
-*      #include <string.h>
-*      #include <stdbool.h>
+* SYNOPSIS:    #include <stdio.h>
+	       #include <string.h> - strdup
+	       #include <stdlib.h> 	- qsort
+	       #include <stdbool.h> - bool's
 * DESCRIPTION
-*		Implements input auxiliary functions
+*		prototipos e constantes das funcoes auxiliares
 * DIAGNOSTICS
 *          OK
 *****************************************************************************/
@@ -18,13 +17,14 @@
 #define _AUXILIARES_
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
+//Numero de separadores
 #define NUMSEP 11
 
-static const char separators[] = {' ','\t',',',';','.','?','!','"','\n',':','\0'};
+static const char separadores[] = {' ','\t',',',';','.','?','!','"','\n',':','\0'};
 
 bool e_caracter_branco(char c);
 

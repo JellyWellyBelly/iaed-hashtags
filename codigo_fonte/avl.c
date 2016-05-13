@@ -1,4 +1,14 @@
+/******************************************************************************************
+* File Name:   avl.c
+* Author:      Goncalo Marques (84719) / Manuel Sousa (84740)
+* Revision:
+* NAME:        Hashtags - IST/IAED - 2015/2016 2º Semestre
+* SYNOPSIS:    #include "avl.h" - prototipos das funcoes e estruturas da arvore
+* DESCRIPTION: funcoes completas de uma arvore AVL
+* DIAGNOSTICS: tested
+*****************************************************************************************/
 #include "avl.h"
+
 
 link NEW(Item item, link l, link r)
 {
@@ -15,7 +25,7 @@ int height(link h){
     return h->height;
 }
 
-void STinit(link*head)
+void AVLinicializa(link*head)
 {
 *head = NULL;
 }

@@ -1,3 +1,20 @@
+/******************************************************************************************
+* File Name:   main.c
+* Author:      Goncalo Marques (84719) / Manuel Sousa (84740)
+* Revision:
+* NAME:        Hashtags - IST/IAED - 2015/2016 2º Semestre
+* SYNOPSIS:    #include <stdio.h>
+	       #include <string.h> - strdup
+	       #include <stdlib.h> 	- qsort
+	       #include <stdbool.h> - bool's
+	       #include "avl.h" - toda a estrura da Arvore AVL
+	       #include "auxiliares.h" - funcoes auxiliares a main 
+* DESCRIPTION: funcao main
+* DIAGNOSTICS: tested
+* USAGE:       make clean
+	       make all
+	       make run
+*****************************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -8,14 +25,20 @@
 
 #define MAXCHAR 142
 
-link avl;
-
+/******************************************************************************************
+* main()
+*
+* Arguments: nenhum
+* Returns: 0
+* Description: 	Menu de comandos - Processa informacao e insere na AVL (estrutura de dados utilizada)	   
+*****************************************************************************************/
 int main(){
+	link avl;
 	bool le_hashtag = false;
 	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0;
 	char c, palavra[MAXCHAR], *p;
 	Item aux, max_hashtag=NULL;
-	STinit(&avl);
+	AVLinicializa(&avl);
 
 	while (1){
 		c = getchar();
@@ -91,17 +114,16 @@ int main(){
 				break;
 
 			case 'l':
-				{
-				Item *vec;
-				int ii=0;
-				vec=(Item*)malloc(sizeof(Item)*contador);
-				int a=0;
-				arvore_para_array(avl,vec,&a);
-				qsort(vec, contador, sizeof(Item), ordena);
-				for(ii=0;ii<contador;ii++){
-					printf("#%s %d\n",vec[ii]-> hashtag,vec[ii]->rep);
+			{
+				Item *vetor;
+				int i=0,a=0;
+				vetor=(Item*)malloc(sizeof(Item)*contador);
+				arvore_para_array(avl,vetor,&a);
+				qsort(vetor, contador, sizeof(Item), ordenaHashtags);
+				for(i=0;i<contador;i++){
+					printf("#%s %d\n",vetor[i]-> hashtag,vetor[i]->rep);
 				}
-				free(vec);
+				free(vetor);
 				break;
 			}
 		}

@@ -1,15 +1,15 @@
 /******************************************************************************
 * File Name: avl.h
-* Author:    Goncalo / Manuel
+* Author:      Goncalo Marques (84719) / Manuel Sousa (84740)
 * Revision:
 * NAME
 *      avl - prototipos
-* SYNOPSIS
-*      #include <stdio.h>
-*      #include <stdlib.h>
-*      #include "item.h"
+* SYNOPSIS:    #include <stdio.h>
+	       #include <string.h> - strdup
+	       #include <stdlib.h> 	- qsort
+	       #include "item.h" - prototipos das funcoes que violam abstracao
 * DESCRIPTION
-*		Implements input auxiliary functions
+*		Prototipos e estruturas da AVL TREE
 * DIAGNOSTICS
 *          OK
 *****************************************************************************/
@@ -27,9 +27,7 @@ struct STnode {
 	int height;
 };
 
-link avl;
-
-void STinit(link*);
+void AVLinicializa(link*);
 int STcount(link);
 Item STsearch(link head, Key v);
 Item searchR(link h, Key v);
@@ -37,7 +35,7 @@ void STinsert(link*,Item);
 void STdelete(link*,Key);
 void STsort(link ,void (*visit)(Item));
 void STfree(link*);
-void STinit(link*);
+void AVLinicializa(link*);
 link NEW(Item item, link l, link r);
 link AVLbalance(link h);
 link rotR(link h);
