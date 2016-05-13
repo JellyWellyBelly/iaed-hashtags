@@ -16,14 +16,14 @@ int ordena(const void *a, const void *b) {
 	if((*ia)->rep == (*ib)->rep)
 		return strcmp((*ia)->hashtag, (*ib)->hashtag);
 	else
-		return (*ia)->rep < (*ib)->rep;
+		return (*ib)->rep - (*ia)->rep;
 } 
 
 int main(){
 	bool le_hashtag = false;
 	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0;
 	char c, palavra[MAXCHAR], *p;
-	Item aux, max_hashtag;
+	Item aux, max_hashtag=NULL;
 	STinit(&avl);
 
 	while (1){
@@ -113,11 +113,12 @@ int main(){
 			case 'l':
 				{
 				Item *vec;
+				int ii=0;
 				vec=(Item*)malloc(sizeof(Item)*contador);
 				int a=0;
 				T2A(avl,vec,&a);
 				qsort(vec, contador, sizeof(Item), ordena);
-				for(int ii=0;ii<contador;ii++){
+				for(ii=0;ii<contador;ii++){
 					printf("#%s %d\n",vec[ii]-> hashtag,vec[ii]->rep);
 				}
 				free(vec);
@@ -126,6 +127,7 @@ int main(){
 		}
 		if (c == 'x'){
 			STfree(&avl);
+			free(vec);
 			return 0;
 		}
 	}
