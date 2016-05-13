@@ -57,22 +57,22 @@ int main(){
 						indice = 0;
 						p = palavra;
 						p++;
-						aux = STsearch(avl, p);
+						aux = AVLprocura(avl, p);
 
 						if (aux == NULLitem){
 							contador++;
 							repeticoes++;
 
-							STinsert(&avl, newItem(p, 1));
+							AVLinsere(&avl, NOVOItem(p, 1));
 
 							if (max_hashtag != NULL){
 								//verifica a hashtag mais popular
 								if (1 == max_hashtag->rep && strcmp(p, max_hashtag->hashtag) < 0){
-									max_hashtag = STsearch(avl, p);
+									max_hashtag = AVLprocura(avl, p);
 								}
 							}
 							else
-								max_hashtag = STsearch(avl, p);
+								max_hashtag = AVLprocura(avl, p);
 						}
 						else{
 							aux->rep++;
@@ -128,7 +128,7 @@ int main(){
 			}
 		}
 		if (c == 'x'){
-			STfree(&avl);
+			AVLliberta(&avl);
 			return 0;
 		}
 	}

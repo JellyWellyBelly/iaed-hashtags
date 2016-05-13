@@ -29,14 +29,14 @@ struct STnode {
 
 void AVLinicializa(link*);
 int STcount(link);
-Item STsearch(link head, Key v);
+Item AVLprocura(link head, Key v);
 Item searchR(link h, Key v);
-void STinsert(link*,Item);
-void STdelete(link*,Key);
-void STsort(link ,void (*visit)(Item));
-void STfree(link*);
+void AVLinsere(link*,Item);
+void AVLapaga(link*,Key);
+void AVLimprime(link ,void (*visit)(Item));
+void AVLliberta(link*);
 void AVLinicializa(link*);
-link NEW(Item item, link l, link r);
+link NOVO(Item item, link l, link r);
 link AVLbalance(link h);
 link rotR(link h);
 link rotLR(link h);

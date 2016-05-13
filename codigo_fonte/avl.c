@@ -10,7 +10,7 @@
 #include "avl.h"
 
 
-link NEW(Item item, link l, link r)
+link NOVO(Item item, link l, link r)
 {
     link x = (link)malloc(sizeof(struct STnode));
     x->item = item;
@@ -30,7 +30,7 @@ void AVLinicializa(link*head)
 *head = NULL;
 }
 
-void STinsert(link*head, Item item)
+void AVLinsere(link*head, Item item)
 {
     *head = insertR(*head, item);
 }
@@ -161,14 +161,14 @@ int STcount(link head){
     return count(head);
 }
 
-void STdelete(link*head, Key k){
+void AVLapaga(link*head, Key k){
     *head = deleteR(*head, k);
 }
 
 
 link insertR(link h, Item item){
     if (h == NULL)
-        return NEW(item, NULL, NULL);
+        return NOVO(item, NULL, NULL);
     if (less(key(item), key(h->item)))
         h->l = insertR(h->l, item);
     else
@@ -186,7 +186,7 @@ void sortR(link h, void (*visit)(Item)){
     sortR(h->r, visit);
 }
 
-void STsort(link head, void (*visit)(Item)){
+void AVLimprime(link head, void (*visit)(Item)){
     sortR(head, visit);
 }
 
@@ -201,7 +201,7 @@ Item searchR(link h, Key v){
         return searchR(h->r, v);
 }
 
-Item STsearch(link head, Key v){
+Item AVLprocura(link head, Key v){
     return searchR(head, v);
 }
 
@@ -213,7 +213,7 @@ link freeR(link h){
     return deleteR(h, key(h->item));
 }
 
-void STfree(link*head){
+void AVLliberta(link*head){
     *head = freeR(*head);
 }
 
