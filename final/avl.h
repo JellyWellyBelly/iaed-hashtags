@@ -11,7 +11,8 @@ link avl;
 
 void STinit(link*);
 int STcount(link);
-Item STsearch(link,Key);
+Item STsearch(link head, Key v);
+Item searchR(link h, Key v);
 void STinsert(link*,Item);
 void STdelete(link*,Key);
 void STsort(link,void (*visit)(Item));

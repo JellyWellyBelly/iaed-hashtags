@@ -167,6 +167,22 @@ void STsort(link head, void (*visit)(Item))
     sortR(head, visit);
 }
 
+Item searchR(link h, Key v)
+{
+ if (h == NULL)
+ return NULLitem;
+ if (eq(v, key(h->item)))
+ return h->item;
+ if (less(v, key(h->item)))
+ return searchR(h->l, v);
+ else
+ return searchR(h->r, v);
+}
+
+Item STsearch(link head, Key v)
+{
+ return searchR(head, v);
+}
 
 link freeR(link h)
 {
