@@ -196,3 +196,14 @@ void STfree(link*head)
 {
     *head=freeR(*head);
 }
+
+int ordenaHashtags(const void *a, const void *b) { //VIOLA ABSTRACAO
+  hashtags *ia = (hashtags *)a;
+  hashtags *ib = (hashtags *)b;
+  return ia->rep > ib->rep;
+} 
+
+void Sort(){
+
+  qsort(aeroportos, numero_aeroportos, sizeof(Aeroporto), ordenaHashtags);
+}
