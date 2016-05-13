@@ -1,3 +1,19 @@
+/******************************************************************************
+* File Name: item.h
+* Author:    Goncalo / Manuel
+* Revision:
+* NAME
+*      item - prototipos
+* SYNOPSIS
+*      #include <stdio.h>
+*      #include <stdlib.h>
+*      #include <string.h>
+*      #include <stdbool.h>
+* DESCRIPTION
+*		Implements input auxiliary functions
+* DIAGNOSTICS
+*          OK
+*****************************************************************************/
 #ifndef _ITEM_
 #define _ITEM_
 #include <stdio.h>
@@ -24,7 +40,7 @@ char* hashtag;
 Item newItem(char *hashtag,int rep);
 void deleteItem(Item a);
 void visitItem(Item a);
-
+int ordena(const void *a, const void *b);
 
 #endif
 

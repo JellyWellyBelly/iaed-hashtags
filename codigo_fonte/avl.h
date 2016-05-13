@@ -1,12 +1,32 @@
+/******************************************************************************
+* File Name: avl.h
+* Author:    Goncalo / Manuel
+* Revision:
+* NAME
+*      avl - prototipos
+* SYNOPSIS
+*      #include <stdio.h>
+*      #include <stdlib.h>
+*      #include "item.h"
+* DESCRIPTION
+*		Implements input auxiliary functions
+* DIAGNOSTICS
+*          OK
+*****************************************************************************/
 #ifndef _AVL_
 #define _AVL_
-#include <stdlib.h>
 #include <stdio.h>
-#include "Item.h"
+#include <stdlib.h>
+#include "item.h"
 
 typedef struct STnode* link;
-struct STnode { Item item; link l, r; int height;};
-//static link head;
+
+struct STnode { 
+	Item item; 
+	link l, r; 
+	int height;
+};
+
 link avl;
 
 void STinit(link*);
@@ -25,5 +45,6 @@ link rotLR(link h);
 link rotRL(link h);
 int Balance(link h);
 link insertR(link h, Item item);
-void T2A(link h,Item *vec,int *i);
+void arvore_para_array(link h,Item *vec,int *i);
+
 #endif

@@ -18,3 +18,13 @@ void visitItem(Item a)
 {
     printf("#%s %d\n",a->hashtag,a->rep);
 }
+
+
+int ordena(const void *a, const void *b) { 
+	Item *ia = (Item *)a;
+	Item *ib = (Item *)b;
+	if((*ia)->rep == (*ib)->rep)
+		return strcmp((*ia)->hashtag, (*ib)->hashtag);
+	else
+		return (*ib)->rep - (*ia)->rep;
+} 

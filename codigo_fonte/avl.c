@@ -72,26 +72,37 @@ link AVLbalance(link h) {
 return h; }
 
 link deleteR(link h, Key k) {
-    if (h==NULL) return h;
-    else if (less(k, key(h->item))) h->l=deleteR(h->l,k);
-    else if (less(key(h->item), k)) h->r=deleteR(h->r,k) ;
+    if (h==NULL) 
+        return h;
+    else if (less(k, key(h->item))) 
+        h->l=deleteR(h->l, k);
+    else if (less(key(h->item), k)) 
+        h->r=deleteR(h->r, k) ;
     else{
         if (h->l !=NULL && h->r !=NULL){
-            link aux=max(h->l);
-            {Item x; x=h->item; h->item=aux->item; aux->item=x;}
+            link aux = max(h->l);
+
+            Item x; 
+            x=h->item; 
+            h->item=aux->item; 
+            aux->item=x;
+
             h->l= deleteR(h->l, key(aux->item));
-}
-else {
-            link aux=h;
-            if (h->l == NULL && h->r == NULL) h=NULL;
-            else if (h->l==NULL) h=h->r;
-            else h=h->l;
+        } 
+    else {
+            link aux = h;
+            if (h->l == NULL && h->r == NULL) 
+                h=NULL;
+            else if (h->l == NULL) 
+                h = h->r;
+            else 
+                h = h->l;
             deleteItem(aux->item);
             free(aux);
-}
-}
-    h=AVLbalance(h);
-  return h;
+    }
+    }   
+    h = AVLbalance(h);
+    return h;
 }
 
 link rotR(link h)
@@ -100,15 +111,15 @@ link rotR(link h)
     link x = h->l;
     h->l = x->r;
     x->r = h;
-
-
- height_left = height(h->l); height_right = height(h->r);
- h->height = height_left > height_right ?  height_left + 1 :
-height_right + 1;
- height_left = height(x->l); height_right = height(h->r);
- x->height = height_left > height_right ?  height_left + 1 :
-height_right + 1;
-return x;
+    height_left = height(h->l); 
+    height_right = height(h->r);
+    h->height = height_left > height_right ?  height_left + 1 :
+    height_right + 1;
+    height_left = height(x->l); 
+    height_right = height(h->r);
+    x->height = height_left > height_right ?  height_left + 1 :
+    height_right + 1;
+    return x;
 }
 
 link rotLR(link h) /*rotação dupla esquerda direita*/
@@ -117,13 +128,15 @@ link rotLR(link h) /*rotação dupla esquerda direita*/
     h->l=rotL(h->l);
     return rotR(h);
 }
+
 link rotRL(link h) /*rotação dupla direita esquerda*/
 {
     if (h==NULL) return h;
     h->r=rotR(h->r);
     return rotL(h);
 }
-int Balance(link h) {/*Balance factor*/
+
+int Balance(link h) {
     if(h == NULL) return 0;
 
     return height(h->l)-height(h->r);
@@ -137,25 +150,25 @@ int count(link h){
 int STcount(link head){
     return count(head);
 }
+
 void STdelete(link*head, Key k){
     *head = deleteR(*head, k);
 }
 
 
-link insertR(link h, Item item)
-{
+link insertR(link h, Item item){
     if (h == NULL)
         return NEW(item, NULL, NULL);
     if (less(key(item), key(h->item)))
         h->l = insertR(h->l, item);
     else
         h->r = insertR(h->r, item);
-    h=AVLbalance(h);
-return h; }
+    h = AVLbalance(h);
+    return h; 
+}
 
 
-void sortR(link h, void (*visit)(Item))
-{
+void sortR(link h, void (*visit)(Item)){
     if (h == NULL)
         return;
     sortR(h->l, visit);
@@ -163,46 +176,41 @@ void sortR(link h, void (*visit)(Item))
     sortR(h->r, visit);
 }
 
-void STsort(link head, void (*visit)(Item))
-{
+void STsort(link head, void (*visit)(Item)){
     sortR(head, visit);
 }
 
-Item searchR(link h, Key v)
-{
- if (h == NULL)
- return NULLitem;
- if (eq(v, key(h->item)))
- return h->item;
- if (less(v, key(h->item)))
- return searchR(h->l, v);
- else
- return searchR(h->r, v);
+Item searchR(link h, Key v){
+    if (h == NULL)
+        return NULLitem;
+    if (eq(v, key(h->item)))
+        return h->item;
+    if (less(v, key(h->item)))
+        return searchR(h->l, v);
+    else
+        return searchR(h->r, v);
 }
 
-Item STsearch(link head, Key v)
-{
- return searchR(head, v);
+Item STsearch(link head, Key v){
+    return searchR(head, v);
 }
 
-link freeR(link h)
-{
-    if (h==NULL)
+link freeR(link h){
+    if (h == NULL)
         return h;
-    h->l=freeR(h->l);
-    h->r=freeR(h->r);
-    return deleteR(h,key(h->item));
-}
-void STfree(link*head)
-{
-    *head=freeR(*head);
+    h->l = freeR(h->l);
+    h->r = freeR(h->r);
+    return deleteR(h, key(h->item));
 }
 
+void STfree(link*head){
+    *head = freeR(*head);
+}
 
-void T2A(link h,Item *vec,int *i){
+void arvore_para_array(link h, Item *vec, int *i){
     if (h == NULL)
         return;
-    T2A(h->l, vec,i);
-    vec[(*i)++]=h->item;
-    T2A(h->r, vec,i);
+    arvore_para_array(h->l, vec, i);
+    vec[(*i)++] = h->item;
+    arvore_para_array(h->r, vec, i);
 }
