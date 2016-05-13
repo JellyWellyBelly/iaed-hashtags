@@ -21,9 +21,9 @@ int ordena(const void *a, const void *b) {
 
 int main(){
 	bool le_hashtag = false;
-	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0, max_rep = 0;
-	char c, palavra[MAXCHAR], *p, *max_hashtag = "";
-	Item aux;
+	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0;
+	char c, palavra[MAXCHAR], *p;
+	Item aux, max_hashtag;
 	STinit(&avl);
 
 	while (1){
@@ -49,20 +49,21 @@ int main(){
 							contador++;
 							repeticoes++;
 
-							//verifica a hashtag mais popular
-							if (1 > max_rep){
-								max_rep = 1;
-								max_hashtag = strdup(p);
+							STinsert(&avl, newItem(p, 1));
+
+							if (max_hashtag != NULL){
+								//verifica a hashtag mais popular
+								if (1 == max_hashtag->rep && strcmp(p, max_hashtag->hashtag) < 0){
+									max_hashtag = STsearch(avl, p);
+								}
 							}
-							else if (1 == max_rep && strcmp(p, max_hashtag) < 0){
-								max_hashtag = strdup(p);
-							}
+							else
+								max_hashtag = STsearch(avl, p);
 
 							//insere = newItem(criaItem(palavra, 1), p, 1);
 							//hashInsert(insere);
 							//STinsert(&avl, insere);
 							//hashInsert(newItem(criaItem(palavra, 1), p, 1));
-							STinsert(&avl, newItem(p, 1));
 
 						}
 						else{
@@ -70,12 +71,11 @@ int main(){
 							aux->rep++;
 
 							//verifica a hashtag mais popular
-							if (aux->rep > max_rep){
-								max_rep = aux->rep;
-								max_hashtag = strdup(p);
+							if (aux->rep > max_hashtag->rep){
+								max_hashtag = aux;
 							}
-							else if (aux->rep == max_rep && strcmp(p, max_hashtag) < 0){
-								max_hashtag = strdup(p);
+							else if (aux->rep == max_hashtag->rep && strcmp(p, max_hashtag->hashtag) < 0){
+								max_hashtag = aux;
 							}
 
 							repeticoes++;
@@ -106,8 +106,8 @@ int main(){
 				break;
 
 			case 'm':
-				if (max_rep > 0)
-					printf("%s %d\n", max_hashtag, max_rep);
+				if (max_hashtag != NULL)
+					printf("#%s %d\n", max_hashtag->hashtag, max_hashtag->rep);
 				break;
 
 			case 'l':

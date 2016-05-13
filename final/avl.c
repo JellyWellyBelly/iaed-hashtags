@@ -205,5 +205,4 @@ void T2A(link h,Item *vec,int *i){
     T2A(h->l, vec,i);
     vec[(*i)++]=h->item;
     T2A(h->r, vec,i);
-
 }

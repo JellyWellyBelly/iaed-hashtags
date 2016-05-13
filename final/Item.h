@@ -15,9 +15,6 @@ char* hashtag;
 #define key(a) (a == NULL ? "" : a->hashtag)
 #define keyNull(a) (a == NULL ? "" : "")
 
-
-
-
 #define less(a,b) (strcmp(a,b)<0)
 #define greater(a,b) (strcmp(a,b)>0)
 #define eq(a,b) (strcmp(a,b)==0)
