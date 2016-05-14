@@ -1,46 +1,41 @@
 /******************************************************************************
 * File Name: item.h
-* Author:    Goncalo / Manuel
+* Author:      Goncalo Marques (84719) / Manuel Sousa (84740)
 * Revision:
 * NAME
 *      item - prototipos
-* SYNOPSIS
-*      #include <stdio.h>
-*      #include <stdlib.h>
-*      #include <string.h>
-*      #include <stdbool.h>
+* SYNOPSIS:    #include <stdio.h>
+	       #include <string.h> - strdup
+	       #include <stdlib.h> 	- qsort
+	       #include <stdbool.h> - bool's
 * DESCRIPTION
-*		Implements input auxiliary functions
+*		prototipos / estruturas / macros das funcoes que violam a abstracao de dados
 * DIAGNOSTICS
 *          OK
 *****************************************************************************/
 #ifndef _ITEM_
 #define _ITEM_
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 
 typedef char* Key;
 
 typedef struct hashtags{
-int rep;
-char* hashtag;
+	int rep;
+	char* hashtag;
 }* Item;
 
 #define NULLitem NULL
 #define key(a) (a == NULL ? "" : a->hashtag)
-#define keyNull(a) (a == NULL ? "" : "")
+#define less(a,b) (strcmp(a,b) < 0)
+#define greater(a,b) (strcmp(a,b) > 0)
+#define eq(a,b) (strcmp(a,b) == 0)
 
-#define less(a,b) (strcmp(a,b)<0)
-#define greater(a,b) (strcmp(a,b)>0)
-#define eq(a,b) (strcmp(a,b)==0)
-#define exch(A, B) { Item t = A; A = B; B = t; }
-#define compexch(A, B) if (less(B, A)) exch(A, B)	
-
-Item newItem(char *hashtag,int rep);
+Item NOVOItem(char *hashtag,int rep);
 void deleteItem(Item a);
-void visitItem(Item a);
-int ordena(const void *a, const void *b);
+void imprimeItem(Item a);
+int ordenaHashtags(const void *a, const void *b);
 
 #endif
 
