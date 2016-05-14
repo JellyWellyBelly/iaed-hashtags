@@ -12,10 +12,10 @@
 /******************************************************************************************
 * e_caracter_branco()
 *
-* Arguments:	c:  caracter
+* Arguments:	char c
 *
-* Returns: bool balblalbalballalbalblablalbalblalallalbaal
-* Description:  MUDAAAAAAAR
+* Returns: bool
+* Description:  verifica se um caracter e considerado branco ou nao
 *****************************************************************************************/
 bool e_caracter_branco(char c){
 	int i = 0;

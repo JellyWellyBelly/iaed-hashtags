@@ -9,11 +9,11 @@
 	       #include <stdbool.h> - bool's
 	       #include "avl.h" - toda a estrura da Arvore AVL
 	       #include "auxiliares.h" - funcoes auxiliares a main 
-* DESCRIPTION: funcao main
-* DIAGNOSTICS: tested
-* USAGE:       make clean
-	       make all
-	       make run
+* DESCRIPTION: 	funcao main
+* DIAGNOSTICS: 	tested
+* USAGE:       	make clean
+	       		make all
+	       		make run
 *****************************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,7 +36,7 @@ int main(){
 	link avl;
 	bool le_hashtag = false;
 	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0;
-	char c, palavra[MAXCHAR], *p;
+	char c, palavra[MAXCHAR];
 	Item aux, max_hashtag=NULL;
 	AVLinicializa(&avl);
 
@@ -55,24 +55,22 @@ int main(){
 						le_hashtag = false;
 						palavra[indice] = '\0';
 						indice = 0;
-						p = palavra;
-						p++;
-						aux = AVLprocura(avl, p);
+						aux = AVLprocura(avl, palavra);
 
 						if (aux == NULLitem){
 							contador++;
 							repeticoes++;
 
-							AVLinsere(&avl, NOVOItem(p, 1));
+							AVLinsere(&avl, NOVOItem(palavra, 1));
 
 							if (max_hashtag != NULL){
 								//verifica a hashtag mais popular
-								if (1 == max_hashtag->rep && strcmp(p, max_hashtag->hashtag) < 0){
-									max_hashtag = AVLprocura(avl, p);
+								if (1 == max_hashtag->rep && strcmp(palavra, max_hashtag->hashtag) < 0){
+									max_hashtag = AVLprocura(avl, palavra);
 								}
 							}
 							else
-								max_hashtag = AVLprocura(avl, p);
+								max_hashtag = AVLprocura(avl, palavra);
 						}
 						else{
 							aux->rep++;
@@ -80,8 +78,7 @@ int main(){
 							//verifica a hashtag mais popular
 							if (aux->rep > max_hashtag->rep){
 								max_hashtag = aux;
-							}
-							else if (aux->rep == max_hashtag->rep && strcmp(p, max_hashtag->hashtag) < 0){
+							} else if (aux->rep == max_hashtag->rep && strcmp(palavra, max_hashtag->hashtag) < 0){
 								max_hashtag = aux;
 							}
 
@@ -97,7 +94,6 @@ int main(){
 
 					if (c == '#' && !(le_hashtag)){
 						le_hashtag = true;
-						palavra[indice++] = c;
 					}
 					if (c == '\n' || len_mensagem == MAXCHAR)
 						break;
