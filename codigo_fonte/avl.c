@@ -28,7 +28,7 @@ Item AVLprocura(link head, Key v){
 /******************************************************************************************
 * searchR()
 *
-* Arguments:    h:  ponteiro para um no da arvore AVL
+* Arguments:    h:  ponteiro para um no da arvore
 *               v:  key a procurar na arvore
 *
 * Returns: Item - retorna um Item se encontrado na arvore ou NULLitem caso contrario
@@ -36,233 +36,20 @@ Item AVLprocura(link head, Key v){
 * Description:  precorre a arvore para retornar o no correspondente a key dada
 *****************************************************************************************/
 Item searchR(link h, Key v){
-	if (h == NULL)
-		return NULLitem;
-	if (eq(v, key(h->item)))
-		return h->item;
-	if (less(v, key(h->item)))
-		return searchR(h->l, v);
-	else
-		return searchR(h->r, v);
-}
-
-/******************************************************************************************
-* AVLinicializa()
-*
-* Arguments:    head:  ponteiro para ponteiro para a cabeca da arvore AVL
-*
-* Returns: void
-* Description:  inicia a cabeca arvore AVL com NULL
-*****************************************************************************************/
-void AVLinicializa(link *head){
-	*head = NULL;
-}
-
-/******************************************************************************************
-* AVLinsere()
-*
-* Arguments:    head:  ponteiro para ponteiro para a cabeca da arvore AVL
-*
-* Returns: void
-* Description:  atualiza a cabeca da arvore com novo elemento inserido
-*****************************************************************************************/
-void AVLinsere(link *head, Item item){
-	*head = insertR(*head, item);
-}
-
-/******************************************************************************************
-* max()
-*
-* Arguments:    head:  ponteiro para a cabeca da arvore AVL
-*
-* Returns: link
-* Description:  retorna o maior dos nos da arvore AVL
-*****************************************************************************************/
-link max(link head){
-	if (head == NULL || head->r == NULL) 
-		return head;
-	else
-		return max(head->r);
-}
-
-/******************************************************************************************
-* min()
-*
-* Arguments:    head:  ponteiro para a cabeca da arvore AVL
-*
-* Returns: link
-* Description:  retorna o menor dos nos da arvore AVL
-*****************************************************************************************/
-link min(link h){
-	if (h == NULL || h->l == NULL) 
-		return h;
-	else
-		return min(h->l);
-}
-
-/******************************************************************************************
-* rotL()
-*
-* Arguments:    h:  ponteiro para a cabeca da arvore AVL
-*
-* Returns: link
-* Description:  
-*****************************************************************************************/
-link rotL(link h){
-	int peso_left, peso_right;
-	link x = h->r;
-	h->r = x->l;
-	x->l = h;
-	peso_left = peso(h->l); peso_right = peso(h->r);
-	h->peso = peso_left > peso_right ?  peso_left + 1 :
-	peso_right + 1;
-	peso_left = peso(h->l); peso_right = peso(x->r);
-	x->peso = peso_left > peso_right ?  peso_left + 1 :
-	peso_right + 1;
-	return x;
-}
-
-/******************************************************************************************
-* AVLbalance()
-*
-* Arguments:    h:  ponteiro para a cabeca da arvore AVL
-*
-* Returns: link
-* Description:  balanceia a arvore AVL
-*****************************************************************************************/
-link AVLbalance(link h){
-	int balanceFactor;
-	if (h==NULL) 
-		return h;
-	balanceFactor = Balance(h);
-	if(balanceFactor > 1){
-		if (Balance(h->l) >= 0) 
-			h=rotR(h);
-		else                 
-			h=rotLR(h);
-	}
-	else if(balanceFactor < -1){
-		if (Balance(h->r) <= 0) 
-			h = rotL(h);
-		else                 
-			h = rotRL(h);
-	} else{
-		int peso_left = peso(h->l); 
-		int peso_right = peso(h->r);
-		h->peso = peso_left > peso_right ?  peso_left + 1 : peso_right + 1;
-	}
-	return h; 
-}
-
-/******************************************************************************************
-* deleteR()
-*
-* Arguments:    h:  ponteiro para a cabeca da arvore AVL
-*				k:	key a procurar na arvore
-*
-* Returns: link
-* Description:  apaga um no que corresponde a key dada
-*****************************************************************************************/
-link deleteR(link h, Key k) {
-	if (h==NULL) 
-		return h;
-	else if (less(k, key(h->item))) 
-		h->l = deleteR(h->l, k);
-	else if (less(key(h->item), k)) 
-		h->r = deleteR(h->r, k);
-	else {
-		if (h->l != NULL && h->r != NULL){
-			link aux = max(h->l);
-			Item x; 
-			x = h->item; 
-			h->item = aux->item; 
-			aux->item = x;
-			h->l = deleteR(h->l, key(aux->item));
-		} else {
-			link aux = h;
-			if (h->l == NULL && h->r == NULL) 
-				h = NULL;
-			else if (h->l == NULL) 
-				h = h->r;
-			else 
-				h = h->l;
-			deleteItem(aux->item);
-			free(aux);
-		}
-	}   
-	h = AVLbalance(h);
-	return h;
-}
-
-/******************************************************************************************
-* rotR()
-*
-* Arguments:    h:  ponteiro para a cabeca da arvore AVL
-*
-* Returns: link
-* Description:  roda a arvore para a direita
-*****************************************************************************************/
-link rotR(link h){
-	int peso_left, peso_right;
-	link x = h->l;
-	h->l = x->r;
-	x->r = h;
-	peso_left = peso(h->l); 
-	peso_right = peso(h->r);
-	h->peso = peso_left > peso_right ?  peso_left + 1 : peso_right + 1;
-	peso_left = peso(x->l); 
-	peso_right = peso(h->r);
-	x->peso = peso_left > peso_right ?  peso_left + 1 : peso_right + 1;
-	return x;
-}
-
-/******************************************************************************************
-* rotLR()
-*
-* Arguments:    h:  ponteiro para a cabeca da arvore AVL
-*
-* Returns: link
-* Description:  faz uma rotacao dupla esquerda direita
-*****************************************************************************************/
-link rotLR(link h){
-	if (h==NULL) 
-		return h;
-	h->l = rotL(h->l);
-	return rotR(h);
-}
-
-/******************************************************************************************
-* rotRL()
-*
-* Arguments:    h:  ponteiro para a cabeca da arvore AVL
-*
-* Returns: link
-* Description:  faz uma rotacao dupla direita esquerda
-*****************************************************************************************/
-link rotRL(link h){
-	if (h==NULL) 
-		return h;
-	h->r = rotR(h->r);
-	return rotL(h);
-}
-
-/******************************************************************************************
-* AVLapaga()
-*
-* Arguments:    head:  	ponteiro para ponteiro para a cabeca da arvore AVL
-*				k:		key a procurar na arvore
-*
-* Returns: void
-* Description:  chama a funcao que apaga o no correspondente a key recebida da arvore
-*****************************************************************************************/
-void AVLapaga(link *head, Key k){
-	*head = deleteR(*head, k);
+    if (h == NULL)
+        return NULLitem;
+    if (eq(v, key(h->item)))
+        return h->item;
+    if (less(v, key(h->item)))
+        return searchR(h->l, v);
+    else
+        return searchR(h->r, v);
 }
 
 /******************************************************************************************
 * insertR()
 *
-* Arguments:    h:  	ponteiro para a cabeca da arvore AVL
+* Arguments:    h:      ponteiro para um no da arvore
 *				item:	item a inserir na arvore
 *
 * Returns: link
@@ -279,77 +66,151 @@ link insertR(link h, Item item){
 	return h; 
 }
 
-/******************************************************************************************
-* decrescente()
-*
-* Arguments:    h:  			ponteiro para a cabeca da arvore AVL
-*				(*visit)(Item):	SGKJASLKGJSALKGJHSALASFJHASKFHASFHASFJHASFHASFHASFOHASFHASLHSALGKSAHGLÇKSAH
-*
-* Returns: void
-* Description:  
-*****************************************************************************************/
-void decrescente(link h, void (*visit)(Item)){
-	if (h == NULL)
-		return;
-	decrescente(h->l, visit);
-	visit(h->item);
-	decrescente(h->r, visit);
-}
 
 /******************************************************************************************
-* AVLimprime()
+* max()
 *
 * Arguments:    head:  ponteiro para a cabeca da arvore AVL
 *
-* Returns: void
-* Description:  liberta a arvore AVL em memoria
+* Returns: link
+* Description:  retorna o maior dos nos da arvore AVL
 *****************************************************************************************/
-void AVLimprime(link head, void (*visit)(Item)){
-	decrescente(head, visit);
+link max(link head){
+    if (head == NULL || head->r == NULL) 
+        return head;
+    else
+        return max(head->r);
 }
 
 /******************************************************************************************
-* freeR()
+* min()
 *
-* Arguments:    h:  ponteiro para a cabeca da arvore AVL
+* Arguments:    head:  ponteiro para a cabeca da arvore AVL
 *
-* Returns: void
-* Description:  liberta a memoria alocada para os nos da arvore
+* Returns: link
+* Description:  retorna o menor dos nos da arvore AVL
 *****************************************************************************************/
-link freeR(link h){
-	if (h == NULL)
-		return h;
-	h->l = freeR(h->l);
-	h->r = freeR(h->r);
-	return deleteR(h, key(h->item));
+link min(link h){
+    if (h == NULL || h->l == NULL) 
+        return h;
+    else
+        return min(h->l);
 }
 
 /******************************************************************************************
-* AVLliberta()
+* rotL()
 *
-* Arguments:    head:  ponteiro para ponteiro para a cabeca da arvore AVL
+* Arguments:    h:  ponteiro para um no da arvore
 *
-* Returns: void
-* Description:  chama a funcao que liberta a memoria alocada para a arvore
+* Returns: link
+* Description:  roda a arvore para a esquerda
 *****************************************************************************************/
-void AVLliberta(link *head){
-	*head = freeR(*head);
+link rotL(link h){
+    int peso_left, peso_right;
+    link x = h->r;
+    h->r = x->l;
+    x->l = h;
+    peso_left = peso(h->l); peso_right = peso(h->r);
+    h->peso = peso_left > peso_right ?  peso_left + 1 :
+    peso_right + 1;
+    peso_left = peso(h->l); peso_right = peso(x->r);
+    x->peso = peso_left > peso_right ?  peso_left + 1 :
+    peso_right + 1;
+    return x;
 }
 
 /******************************************************************************************
-* AVL_para_array()
+* AVLbalance()
 *
-* Arguments:    h:  recebe no
+* Arguments:    h:  ponteiro para um no da arvore
 *
-* Returns: void
-* Description:  precorre a arvore por ordem decrescente e constroi um vetor de Items
+* Returns: link
+* Description:  balanceia a arvore AVL
 *****************************************************************************************/
-void AVL_para_array(link h, Item *vec, int *i){
-	if (h == NULL)
-		return;
-	AVL_para_array(h->l, vec, i);
-	vec[(*i)++] = h->item;
-	AVL_para_array(h->r, vec, i);
+link AVLbalance(link h){
+    int balanceFactor;
+    if (h==NULL) 
+        return h;
+    balanceFactor = Balance(h);
+    if(balanceFactor > 1){
+        if (Balance(h->l) >= 0) 
+            h=rotR(h);
+        else                 
+            h=rotLR(h);
+    }
+    else if(balanceFactor < -1){
+        if (Balance(h->r) <= 0) 
+            h = rotL(h);
+        else                 
+            h = rotRL(h);
+    } else{
+        int peso_left = peso(h->l); 
+        int peso_right = peso(h->r);
+        h->peso = peso_left > peso_right ?  peso_left + 1 : peso_right + 1;
+    }
+    return h; 
+}
+
+/******************************************************************************************
+* deleteR()
+*
+* Arguments:    h:  ponteiro para um no da arvore
+*               k:  key a procurar na arvore
+*
+* Returns: link
+* Description:  apaga um no correspondente a key dada
+*****************************************************************************************/
+link deleteR(link h, Key k) {
+    if (h==NULL) 
+        return h;
+    else if (less(k, key(h->item))) 
+        h->l = deleteR(h->l, k);
+    else if (less(key(h->item), k)) 
+        h->r = deleteR(h->r, k);
+    else {
+        if (h->l != NULL && h->r != NULL){
+            link aux = max(h->l);
+            Item x; 
+            x = h->item; 
+            h->item = aux->item; 
+            aux->item = x;
+            h->l = deleteR(h->l, key(aux->item));
+        } else {
+            link aux = h;
+            if (h->l == NULL && h->r == NULL) 
+                h = NULL;
+            else if (h->l == NULL) 
+                h = h->r;
+            else 
+                h = h->l;
+            deleteItem(aux->item);
+            free(aux);
+        }
+    }   
+    h = AVLbalance(h);
+    return h;
+}
+
+/******************************************************************************************
+* rotR()
+*
+* Arguments:    h:  ponteiro para um no da arvore
+*
+* Returns: link
+* Description:  roda a arvore para a direita
+*****************************************************************************************/
+link rotR(link h){
+    int peso_left, peso_right;
+    link x = h->l;
+    h->l = x->r;
+    x->r = h;
+    peso_left = peso(h->l); 
+    peso_right = peso(h->r);
+    h->peso = peso_left > peso_right ?  peso_left + 1 : peso_right + 1;
+    peso_left = peso(x->l); 
+    peso_right = peso(h->r);
+    x->peso = peso_left > peso_right ?  peso_left + 1 : peso_right + 1;
+    return x;
 }
 
 /******************************************************************************************
@@ -372,9 +233,155 @@ link NOVO(Item item, link l, link r){
 }
 
 /******************************************************************************************
+* rotLR()
+*
+* Arguments:    h:  ponteiro para um no da arvore
+*
+* Returns: link
+* Description:  faz uma rotacao dupla esquerda direita
+*****************************************************************************************/
+link rotLR(link h){
+    if (h == NULL) 
+        return h;
+    h->l = rotL(h->l);
+    return rotR(h);
+}
+
+/******************************************************************************************
+* freeR()
+*
+* Arguments:    h:  ponteiro para um no da arvore
+*
+* Returns: void
+* Description:  liberta a memoria alocada para os nos da arvore
+*****************************************************************************************/
+link freeR(link h){
+    if (h == NULL)
+        return h;
+    h->l = freeR(h->l);
+    h->r = freeR(h->r);
+    return deleteR(h, key(h->item));
+}
+
+/******************************************************************************************
+* rotRL()
+*
+* Arguments:    h:    ponteiro para um no da arvore
+*
+* Returns: link
+* Description:  faz uma rotacao dupla direita esquerda
+*****************************************************************************************/
+link rotRL(link h){
+    if (h==NULL) 
+        return h;
+    h->r = rotR(h->r);
+    return rotL(h);
+}
+
+/******************************************************************************************
+* AVLapaga()
+*
+* Arguments:    head:   ponteiro para ponteiro para a cabeca da arvore AVL
+*               k:      key a procurar na arvore
+*
+* Returns: void
+* Description:  chama a funcao que apaga o no correspondente a key recebida da arvore
+*****************************************************************************************/
+void AVLapaga(link *head, Key k){
+    *head = deleteR(*head, k);
+}
+
+/******************************************************************************************
+* AVLinicializa()
+*
+* Arguments:    head:  ponteiro para ponteiro para a cabeca da arvore AVL
+*
+* Returns: void
+* Description:  inicia a cabeca arvore AVL com NULL
+*****************************************************************************************/
+void AVLinicializa(link *head){
+    *head = NULL;
+}
+
+/******************************************************************************************
+* AVLinsere()
+*
+* Arguments:    head:  ponteiro para ponteiro para a cabeca da arvore AVL
+*               item:  recebe item para inserir na arvore
+*
+* Returns: void
+* Description:  atualiza a cabeca da arvore com novo elemento inserido
+*****************************************************************************************/
+void AVLinsere(link *head, Item item){
+    *head = insertR(*head, item);
+}
+
+/******************************************************************************************
+* decrescente()
+*
+* Arguments:    h:              ponteiro para um no da arvore
+*               (*visit)(Item): ponteiro para funcao
+*
+* Returns: void
+* Description:  imprime a arvore por ordem decrescente
+*****************************************************************************************/
+void decrescente(link h, void (*visit)(Item)){
+    if (h == NULL)
+        return;
+    decrescente(h->l, visit);
+    visit(h->item);
+    decrescente(h->r, visit);
+}
+
+/******************************************************************************************
+* AVLimprime()
+*
+* Arguments:    head:  ponteiro para a cabeca da arvore AVL
+*               (*visit)(Item): ponteiro para funcao
+*
+* Returns: void
+* Description:  chama funcao recursiva que imprimira a arvore
+*****************************************************************************************/
+void AVLimprime(link head, void (*visit)(Item)){
+    decrescente(head, visit);
+}
+
+
+/******************************************************************************************
+* AVLliberta()
+*
+* Arguments:    head:  ponteiro para ponteiro para a cabeca da arvore AVL
+*
+* Returns: void
+* Description:  chama a funcao que liberta a memoria alocada para a arvore
+*****************************************************************************************/
+void AVLliberta(link *head){
+    *head = freeR(*head);
+}
+
+/******************************************************************************************
+* AVL_para_array()
+*
+* Arguments:    h:  ponteiro para um no da arvore
+* Arguments:    vec:  ponteiro para ponteiro de um vetor de items
+* Arguments:    i:  ponteiro para inteiro que e o iterador (muda recursivamente)
+*
+* Returns: void
+* Description:  precorre a arvore por ordem decrescente e constroi um vetor de Items recursivamente
+*****************************************************************************************/
+void AVL_para_array(link h, Item *vec, int *i){
+    if (h == NULL)
+        return;
+    AVL_para_array(h->l, vec, i);
+    vec[(*i)++] = h->item;
+    AVL_para_array(h->r, vec, i);
+}
+
+
+/******************************************************************************************
 * Balance()
 *
-* Arguments:    h:  recebe no
+* Arguments:    h:  ponteiro para um no da arvore
 *
 * Returns: int retorna o novo peso
 * Description:  retorna o novo peso para Balanceamento
@@ -386,9 +393,9 @@ int Balance(link h) {
 }
 
 /******************************************************************************************
-* AVLconta()
+* count()
 *
-* Arguments:    head:  recebe no
+* Arguments:    head:  ponteiro para um no da arvore
 *
 * Returns: int retorna profundidade da arvore a partir de um no
 * Description:  funcao recursiva que calcula a profundadade da arvore AVL a partir de um no
@@ -403,7 +410,7 @@ int count(link h){
 /******************************************************************************************
 * AVLconta()
 *
-* Arguments:    head:  recebe no
+* Arguments:    head:  ponteiro para um no da arvore
 *
 * Returns: int retorna profundidade da arvore
 * Description:  retorna profundidade da arvore AVL
@@ -415,7 +422,7 @@ int AVLconta(link head){
 /******************************************************************************************
 * peso()
 *
-* Arguments:    h:  recebe no
+* Arguments:    h:  ponteiro para um no da arvore
 *
 * Returns: int retorna o valor do peso do no, NULL caso o no nao exista
 * Description:  retorna o valor do peso
