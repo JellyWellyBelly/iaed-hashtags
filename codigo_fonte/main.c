@@ -12,8 +12,8 @@
 * DESCRIPTION: 	funcao main
 * DIAGNOSTICS: 	tested
 * USAGE:       	make clean
-	       		make all
-	       		make run
+	       	make all
+	       	make run
 *****************************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>

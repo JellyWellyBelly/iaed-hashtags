@@ -32,52 +32,49 @@ Item AVLprocura(link head, Key v);
 
 Item searchR(link h, Key v);
 
-void AVLinicializa(link*);
+link max(link h);
 
-void AVLinsere(link*,Item);
+link min(link h);
+
+link rotL(link h);
+
+link rotR(link h);
+
+link rotLR(link h);
+
+link rotRL(link h);
+
+link NOVO(Item item, link l, link r);
+
+link AVLbalance(link h);
+
+link deleteR(link h, Key k) ;
+
+link insertR(link h, Item item);
+
+link freeR(link h);
+
+void AVLinicializa(link*);
 
 void AVLapaga(link*,Key);
 
-void AVLliberta(link*);
+void AVLinsere(link*,Item);
 
 void decrescente(link h, void (*visit)(Item));
 
 void AVLimprime(link ,void (*visit)(Item));
 
-void AVLinicializa(link*);
+void AVLliberta(link*);
 
 void AVL_para_array(link h,Item *vec,int *i);
 
-void decrescente(link h, void (*visit)(Item));
+int AVLconta(link);
 
-link NOVO(Item item, link l, link r);
-
-link min(link h);
-
-link max(link h);
-
-link AVLbalance(link h);
-
-link freeR(link h);
-
-link rotR(link h);
-
-link deleteR(link h, Key k) ;
-
-link rotLR(link h);
-
-link rotL(link h);
-
-link rotRL(link h);
-
-link insertR(link h, Item item);
+int Balance(link h);
 
 int count(link h);
 
-int AVLconta(link);
-
 int peso(link h);
 
-int Balance(link h);
 
 #endif

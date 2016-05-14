@@ -47,27 +47,6 @@ Item searchR(link h, Key v){
 }
 
 /******************************************************************************************
-* insertR()
-*
-* Arguments:    h:      ponteiro para um no da arvore
-*				item:	item a inserir na arvore
-*
-* Returns: link
-* Description:  insere um novo no na arvore associado ao item recebido
-*****************************************************************************************/
-link insertR(link h, Item item){
-	if (h == NULL)
-		return NOVO(item, NULL, NULL);
-	if (less(key(item), key(h->item)))
-		h->l = insertR(h->l, item);
-	else
-		h->r = insertR(h->r, item);
-	h = AVLbalance(h);
-	return h; 
-}
-
-
-/******************************************************************************************
 * max()
 *
 * Arguments:    head:  ponteiro para a cabeca da arvore AVL
@@ -117,6 +96,77 @@ link rotL(link h){
     x->peso = peso_left > peso_right ?  peso_left + 1 :
     peso_right + 1;
     return x;
+}
+
+/******************************************************************************************
+* rotR()
+*
+* Arguments:    h:  ponteiro para um no da arvore
+*
+* Returns: link
+* Description:  roda a arvore para a direita
+*****************************************************************************************/
+link rotR(link h){
+    int peso_left, peso_right;
+    link x = h->l;
+    h->l = x->r;
+    x->r = h;
+    peso_left = peso(h->l); 
+    peso_right = peso(h->r);
+    h->peso = peso_left > peso_right ?  peso_left + 1 : peso_right + 1;
+    peso_left = peso(x->l); 
+    peso_right = peso(h->r);
+    x->peso = peso_left > peso_right ?  peso_left + 1 : peso_right + 1;
+    return x;
+}
+
+/******************************************************************************************
+* rotLR()
+*
+* Arguments:    h:  ponteiro para um no da arvore
+*
+* Returns: link
+* Description:  faz uma rotacao dupla esquerda direita
+*****************************************************************************************/
+link rotLR(link h){
+    if (h == NULL) 
+        return h;
+    h->l = rotL(h->l);
+    return rotR(h);
+}
+
+/******************************************************************************************
+* rotRL()
+*
+* Arguments:    h:    ponteiro para um no da arvore
+*
+* Returns: link
+* Description:  faz uma rotacao dupla direita esquerda
+*****************************************************************************************/
+link rotRL(link h){
+    if (h==NULL) 
+        return h;
+    h->r = rotR(h->r);
+    return rotL(h);
+}
+
+/******************************************************************************************
+* NOVO()
+*
+* Arguments:    item:  elemento da arvore
+*               l:  no (equerdo)
+*               r:  no (direito)
+*
+* Returns: link retorna um no da arvore
+* Description:  adiciona um novo elemento na arvore
+*****************************************************************************************/
+link NOVO(Item item, link l, link r){
+    link x = (link)malloc(sizeof(struct STnode));
+    x->item = item;
+    x->l = l;
+    x->r = r;
+    x->peso = 1;
+    return x; 
 }
 
 /******************************************************************************************
@@ -192,59 +242,23 @@ link deleteR(link h, Key k) {
 }
 
 /******************************************************************************************
-* rotR()
+* insertR()
 *
-* Arguments:    h:  ponteiro para um no da arvore
-*
-* Returns: link
-* Description:  roda a arvore para a direita
-*****************************************************************************************/
-link rotR(link h){
-    int peso_left, peso_right;
-    link x = h->l;
-    h->l = x->r;
-    x->r = h;
-    peso_left = peso(h->l); 
-    peso_right = peso(h->r);
-    h->peso = peso_left > peso_right ?  peso_left + 1 : peso_right + 1;
-    peso_left = peso(x->l); 
-    peso_right = peso(h->r);
-    x->peso = peso_left > peso_right ?  peso_left + 1 : peso_right + 1;
-    return x;
-}
-
-/******************************************************************************************
-* NOVO()
-*
-* Arguments:    item:  elemento da arvore
-*               l:  no (equerdo)
-*               r:  no (direito)
-*
-* Returns: link retorna um no da arvore
-* Description:  adiciona um novo elemento na arvore
-*****************************************************************************************/
-link NOVO(Item item, link l, link r){
-	link x = (link)malloc(sizeof(struct STnode));
-	x->item = item;
-	x->l = l;
-	x->r = r;
-	x->peso = 1;
-	return x; 
-}
-
-/******************************************************************************************
-* rotLR()
-*
-* Arguments:    h:  ponteiro para um no da arvore
+* Arguments:    h:      ponteiro para um no da arvore
+*				item:	item a inserir na arvore
 *
 * Returns: link
-* Description:  faz uma rotacao dupla esquerda direita
+* Description:  insere um novo no na arvore associado ao item recebido
 *****************************************************************************************/
-link rotLR(link h){
-    if (h == NULL) 
-        return h;
-    h->l = rotL(h->l);
-    return rotR(h);
+link insertR(link h, Item item){
+	if (h == NULL)
+		return NOVO(item, NULL, NULL);
+	if (less(key(item), key(h->item)))
+		h->l = insertR(h->l, item);
+	else
+		h->r = insertR(h->r, item);
+	h = AVLbalance(h);
+	return h; 
 }
 
 /******************************************************************************************
@@ -264,18 +278,15 @@ link freeR(link h){
 }
 
 /******************************************************************************************
-* rotRL()
+* AVLinicializa()
 *
-* Arguments:    h:    ponteiro para um no da arvore
+* Arguments:    head:  ponteiro para ponteiro para a cabeca da arvore AVL
 *
-* Returns: link
-* Description:  faz uma rotacao dupla direita esquerda
+* Returns: void
+* Description:  inicia a cabeca arvore AVL com NULL
 *****************************************************************************************/
-link rotRL(link h){
-    if (h==NULL) 
-        return h;
-    h->r = rotR(h->r);
-    return rotL(h);
+void AVLinicializa(link *head){
+    *head = NULL;
 }
 
 /******************************************************************************************
@@ -289,18 +300,6 @@ link rotRL(link h){
 *****************************************************************************************/
 void AVLapaga(link *head, Key k){
     *head = deleteR(*head, k);
-}
-
-/******************************************************************************************
-* AVLinicializa()
-*
-* Arguments:    head:  ponteiro para ponteiro para a cabeca da arvore AVL
-*
-* Returns: void
-* Description:  inicia a cabeca arvore AVL com NULL
-*****************************************************************************************/
-void AVLinicializa(link *head){
-    *head = NULL;
 }
 
 /******************************************************************************************
@@ -346,7 +345,6 @@ void AVLimprime(link head, void (*visit)(Item)){
     decrescente(head, visit);
 }
 
-
 /******************************************************************************************
 * AVLliberta()
 *
@@ -377,6 +375,17 @@ void AVL_para_array(link h, Item *vec, int *i){
     AVL_para_array(h->r, vec, i);
 }
 
+/******************************************************************************************
+* AVLconta()
+*
+* Arguments:    head:  ponteiro para um no da arvore
+*
+* Returns: int retorna profundidade da arvore
+* Description:  retorna profundidade da arvore AVL
+*****************************************************************************************/
+int AVLconta(link head){
+	return count(head);
+}
 
 /******************************************************************************************
 * Balance()
@@ -387,9 +396,9 @@ void AVL_para_array(link h, Item *vec, int *i){
 * Description:  retorna o novo peso para Balanceamento
 *****************************************************************************************/
 int Balance(link h) {
-	if(h == NULL) 
-		return 0;
-	return peso(h->l) - peso(h->r);
+    if(h == NULL) 
+        return 0;
+    return peso(h->l) - peso(h->r);
 }
 
 /******************************************************************************************
@@ -401,22 +410,10 @@ int Balance(link h) {
 * Description:  funcao recursiva que calcula a profundadade da arvore AVL a partir de um no
 *****************************************************************************************/
 int count(link h){
-	if (h==NULL) 
-		return 0;
-	else 
-		return count(h->r) + count(h->l) + 1;
-}
-
-/******************************************************************************************
-* AVLconta()
-*
-* Arguments:    head:  ponteiro para um no da arvore
-*
-* Returns: int retorna profundidade da arvore
-* Description:  retorna profundidade da arvore AVL
-*****************************************************************************************/
-int AVLconta(link head){
-	return count(head);
+    if (h==NULL) 
+        return 0;
+    else 
+        return count(h->r) + count(h->l) + 1;
 }
 
 /******************************************************************************************
