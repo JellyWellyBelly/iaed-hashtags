@@ -3,13 +3,13 @@
 * Author:      Goncalo Marques (84719) / Manuel Sousa (84740)
 * Revision:
 * NAME
-*      	auxiliares - prototipos
+*      auxiliares - prototipos
 * SYNOPSIS:    #include <stdio.h>
-	       #include <string.h>  - strdup
-	       #include <stdlib.h>  - qsort
+	       #include <string.h> - strdup
+	       #include <stdlib.h> 	- qsort
 	       #include <stdbool.h> - bool's
 * DESCRIPTION
-*	       prototipos e constantes das funcoes auxiliares
+*		prototipos e constantes das funcoes auxiliares
 * DIAGNOSTICS
 *          OK
 *****************************************************************************/

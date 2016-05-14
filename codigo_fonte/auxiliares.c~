@@ -14,7 +14,7 @@
 *
 * Arguments:	char c
 *
-* Returns: bool retorna true se for um caracter branco, false caso contrario
+* Returns: bool
 * Description:  verifica se um caracter e considerado branco ou nao
 *****************************************************************************************/
 bool e_caracter_branco(char c){
