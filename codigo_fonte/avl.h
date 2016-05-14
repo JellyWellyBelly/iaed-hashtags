@@ -21,28 +21,63 @@
 
 typedef struct STnode* link;
 
+//no
 struct STnode { 
 	Item item; 
 	link l, r; 
-	int height;
+	int peso;
 };
 
-void AVLinicializa(link*);
-int STcount(link);
 Item AVLprocura(link head, Key v);
+
 Item searchR(link h, Key v);
-void AVLinsere(link*,Item);
-void AVLapaga(link*,Key);
-void AVLimprime(link ,void (*visit)(Item));
-void AVLliberta(link*);
+
 void AVLinicializa(link*);
+
+void AVLinsere(link*,Item);
+
+void AVLapaga(link*,Key);
+
+void AVLliberta(link*);
+
+void decrescente(link h, void (*visit)(Item));
+
+void AVLimprime(link ,void (*visit)(Item));
+
+void AVLinicializa(link*);
+
+void AVL_para_array(link h,Item *vec,int *i);
+
+void decrescente(link h, void (*visit)(Item));
+
 link NOVO(Item item, link l, link r);
+
+link min(link h);
+
+link max(link h);
+
 link AVLbalance(link h);
+
+link freeR(link h);
+
 link rotR(link h);
+
+link deleteR(link h, Key k) ;
+
 link rotLR(link h);
+
+link rotL(link h);
+
 link rotRL(link h);
-int Balance(link h);
+
 link insertR(link h, Item item);
-void arvore_para_array(link h,Item *vec,int *i);
+
+int count(link h);
+
+int AVLconta(link);
+
+int peso(link h);
+
+int Balance(link h);
 
 #endif

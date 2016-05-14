@@ -35,7 +35,7 @@
 int main(){
 	link avl;
 	bool le_hashtag = false;
-	int len_mensagem = 0, indice = 0, contador = 0, repeticoes = 0;
+	int len_mensagem = 0, indice = 0, contador = 0, conta_repeticoes = 0;
 	char c, palavra[MAXCHAR];
 	Item aux, max_hashtag=NULL;
 	AVLinicializa(&avl);
@@ -59,13 +59,13 @@ int main(){
 
 						if (aux == NULLitem){
 							contador++;
-							repeticoes++;
+							conta_repeticoes++;
 
 							AVLinsere(&avl, NOVOItem(palavra, 1));
 
 							if (max_hashtag != NULL){
 								//verifica a hashtag mais popular
-								if (1 == max_hashtag->rep && strcmp(palavra, max_hashtag->hashtag) < 0){
+								if (1 == max_hashtag->repeticoes && strcmp(palavra, max_hashtag->hashtag) < 0){
 									max_hashtag = AVLprocura(avl, palavra);
 								}
 							}
@@ -73,16 +73,16 @@ int main(){
 								max_hashtag = AVLprocura(avl, palavra);
 						}
 						else{
-							aux->rep++;
+							aux->repeticoes++;
 
 							//verifica a hashtag mais popular
-							if (aux->rep > max_hashtag->rep){
+							if (aux->repeticoes > max_hashtag->repeticoes){
 								max_hashtag = aux;
-							} else if (aux->rep == max_hashtag->rep && strcmp(palavra, max_hashtag->hashtag) < 0){
+							} else if (aux->repeticoes == max_hashtag->repeticoes && strcmp(palavra, max_hashtag->hashtag) < 0){
 								max_hashtag = aux;
 							}
 
-							repeticoes++;
+							conta_repeticoes++;
 						}
 					}
 					if(le_hashtag){
@@ -101,12 +101,12 @@ int main(){
 				break;
 
 			case 's':
-				printf("%d %d\n", contador, repeticoes);
+				printf("%d %d\n", contador, conta_repeticoes);
 				break;
 
 			case 'm':
 				if (max_hashtag != NULL)
-					printf("#%s %d\n", max_hashtag->hashtag, max_hashtag->rep);
+					printf("#%s %d\n", max_hashtag->hashtag, max_hashtag->repeticoes);
 				break;
 
 			case 'l':
@@ -114,10 +114,10 @@ int main(){
 				Item *vetor;
 				int i=0,a=0;
 				vetor=(Item*)malloc(sizeof(Item)*contador);
-				arvore_para_array(avl,vetor,&a);
-				qsort(vetor, contador, sizeof(Item), ordenaHashtags);
+				AVL_para_array(avl,vetor,&a);
+				qsort(vetor, contador, sizeof(Item), ordenaHashtags); //Ordena com QuickSort ~(N log N)~
 				for(i=0;i<contador;i++){
-					printf("#%s %d\n",vetor[i]-> hashtag,vetor[i]->rep);
+					printf("#%s %d\n",vetor[i]-> hashtag,vetor[i]->repeticoes);
 				}
 				free(vetor);
 				break;

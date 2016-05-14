@@ -6,7 +6,7 @@
 *      item - prototipos
 * SYNOPSIS:    #include <stdio.h>
 	       #include <string.h> - strdup
-	       #include <stdlib.h> 	- qsort
+	       #include <stdlib.h> 	- qsort	
 	       #include <stdbool.h> - bool's
 * DESCRIPTION
 *		prototipos / estruturas / macros das funcoes que violam a abstracao de dados
@@ -21,10 +21,11 @@
 
 typedef char* Key;
 
+//Estrutura das hashtags
 typedef struct hashtags{
-	int rep;
-	char* hashtag;
-}* Item;
+	int repeticoes;
+	char *hashtag;
+} *Item;
 
 #define NULLitem NULL
 #define key(a) (a == NULL ? "" : a->hashtag)
@@ -32,9 +33,12 @@ typedef struct hashtags{
 #define greater(a,b) (strcmp(a,b) > 0)
 #define eq(a,b) (strcmp(a,b) == 0)
 
-Item NOVOItem(char *hashtag,int rep);
+Item NOVOItem(char *hashtag,int repeticoes);
+
 void deleteItem(Item a);
+
 void imprimeItem(Item a);
+
 int ordenaHashtags(const void *a, const void *b);
 
 #endif

@@ -24,6 +24,7 @@
 //Numero de separadores
 #define NUMSEP 11
 
+//caracteres brancos
 static const char separadores[] = {' ','\t',',',';','.','?','!','"','\n',':','\0'};
 
 bool e_caracter_branco(char c);

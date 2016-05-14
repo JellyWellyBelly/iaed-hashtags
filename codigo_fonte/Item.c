@@ -6,7 +6,6 @@
 * SYNOPSIS:    #include "item.h" - prototipos e macros
 * DESCRIPTION: funcoes da arvore AVL que violam abstracao
 * DIAGNOSTICS: tested
-* USAGE:       make clean
 *****************************************************************************************/
 #include "item.h"
 
@@ -14,14 +13,14 @@
 * NOVOItem()
 *
 * Arguments:	NOVOItem:  ponteiro para o nome da hashtag
-*               repeticoes:  numero de repeticoes da hashtag
+*               conta_repeticoes:  numero de conta_repeticoes da hashtag
 *
 * Returns: void
 * Description:  cria e aloca memoria para o hashtag
 *****************************************************************************************/
-Item NOVOItem(char *hashtag,int repeticoes){
+Item NOVOItem(char *hashtag,int conta_repeticoes){
     Item x = (Item)malloc(sizeof(struct hashtags));
-    x->rep = repeticoes;
+    x->repeticoes = conta_repeticoes;
     x->hashtag = strdup(hashtag);
 	return x; 
 }
@@ -45,10 +44,10 @@ void deleteItem(Item a){
 * Arguments:	a:  ponteiro para a estrutura da hashtag
 *
 * Returns: void
-* Description:  escreve o nome da hashtag e o seu numero de repeticoes
+* Description:  escreve o nome da hashtag e o seu numero de conta_repeticoes
 *****************************************************************************************/
 void imprimeItem(Item a){
-    printf("#%s %d\n", a->hashtag, a->rep);
+    printf("#%s %d\n", a->hashtag, a->repeticoes);
 }
 
 
@@ -59,13 +58,13 @@ void imprimeItem(Item a){
 *               b:  ponteiro para hashtag
 *
 * Returns: int 	retorna valor logico da comparacao de 2 hashtags
-* Description:  decrescente por repeticoes e alfabeticamente em caso de empate | Usado no qsort
+* Description:  decrescente por conta_repeticoes e alfabeticamente em caso de empate | Usado no qsort
 *****************************************************************************************/
 int ordenaHashtags(const void *a, const void *b) { 
 	Item *ia = (Item *)a;
 	Item *ib = (Item *)b;
-	if((*ia)->rep == (*ib)->rep)
+	if((*ia)->repeticoes == (*ib)->repeticoes)
 		return strcmp((*ia)->hashtag, (*ib)->hashtag);
 	else
-		return (*ib)->rep - (*ia)->rep;
+		return (*ib)->repeticoes - (*ia)->repeticoes;
 } 
