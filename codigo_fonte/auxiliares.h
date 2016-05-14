@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-//Numero de separadores
+//Numero de caracteres brancos
 #define NUMSEP 11
 
 //caracteres brancos

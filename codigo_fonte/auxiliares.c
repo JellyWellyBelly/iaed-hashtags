@@ -12,7 +12,7 @@
 /******************************************************************************************
 * e_caracter_branco()
 *
-* Arguments:	char c
+* Arguments:    c:  caracter
 *
 * Returns: bool retorna true se for um caracter branco, false caso contrario
 * Description:  verifica se um caracter e considerado branco ou nao

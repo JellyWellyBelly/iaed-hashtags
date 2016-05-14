@@ -30,7 +30,7 @@
 *
 * Arguments: nenhum
 * Returns: 0
-* Description: 	menu de comandos -processa informacao e insere na AVL (estrutura de dados utilizada)	   
+* Description: 	menu de comandos - processa informacao e insere na AVL (estrutura de dados utilizada)	   
 *****************************************************************************************/
 int main(){
 	link avl;

@@ -12,7 +12,7 @@
 /******************************************************************************************
 * NOVOItem()
 *
-* Arguments:	NOVOItem:  ponteiro para o nome da hashtag
+* Arguments:	hashtag:  ponteiro para o nome da hashtag
 *               repeticoes:  numero de repeticoes da hashtag
 *
 * Returns: void
@@ -41,7 +41,7 @@ void deleteItem(Item a){
 /******************************************************************************************
 * imprimeItem()
 *
-* Arguments:	a:  ponteiro para a estrutura da hashtag
+* Arguments:	a:  ponteiro para a estrutura da hashtag (Item)
 *
 * Returns: void
 * Description:  escreve o nome da hashtag e o seu numero de repeticoes

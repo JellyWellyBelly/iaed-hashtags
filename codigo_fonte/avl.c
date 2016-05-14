@@ -22,7 +22,7 @@
 * Description:  chama funcao de procura na arvore
 *****************************************************************************************/
 Item AVLprocura(link head, Key v){
-	return searchR(head, v);
+    return searchR(head, v);
 }
 
 /******************************************************************************************
@@ -245,20 +245,20 @@ link deleteR(link h, Key k) {
 * insertR()
 *
 * Arguments:    h:      ponteiro para um no da arvore
-*		item:	item a inserir na arvore
+*       item:   item a inserir na arvore
 *
 * Returns: link
 * Description:  insere um novo no na arvore associado ao item recebido
 *****************************************************************************************/
 link insertR(link h, Item item){
-	if (h == NULL)
-		return NOVO(item, NULL, NULL);
-	if (less(key(item), key(h->item)))
-		h->l = insertR(h->l, item);
-	else
-		h->r = insertR(h->r, item);
-	h = AVLbalance(h);
-	return h; 
+    if (h == NULL)
+        return NOVO(item, NULL, NULL);
+    if (less(key(item), key(h->item)))
+        h->l = insertR(h->l, item);
+    else
+        h->r = insertR(h->r, item);
+    h = AVLbalance(h);
+    return h; 
 }
 
 /******************************************************************************************
@@ -335,7 +335,7 @@ void decrescente(link h, void (*visit)(Item)){
 /******************************************************************************************
 * AVLimprime()
 *
-* Arguments:    head:  		ponteiro para a cabeca da arvore AVL
+* Arguments:    head:       ponteiro para a cabeca da arvore AVL
 *               (*visit)(Item): ponteiro para funcao
 *
 * Returns: void
@@ -380,11 +380,11 @@ void AVL_para_array(link h, Item *vec, int *i){
 *
 * Arguments:    head:  ponteiro para um no da arvore
 *
-* Returns: int 	retorna profundidade da arvore
+* Returns: int  retorna profundidade da arvore
 * Description:  retorna profundidade da arvore AVL
 *****************************************************************************************/
 int AVLconta(link head){
-	return count(head);
+    return count(head);
 }
 
 /******************************************************************************************
@@ -392,7 +392,7 @@ int AVLconta(link head){
 *
 * Arguments:    h:  ponteiro para um no da arvore
 *
-* Returns: int 	retorna o novo peso
+* Returns: int  retorna o novo peso
 * Description:  retorna o novo peso para balanceamento
 *****************************************************************************************/
 int Balance(link h) {
@@ -406,7 +406,7 @@ int Balance(link h) {
 *
 * Arguments:    head:  ponteiro para um no da arvore
 *
-* Returns: int 	retorna profundidade da arvore a partir de um no
+* Returns: int  retorna profundidade da arvore a partir de um no
 * Description:  funcao recursiva que calcula a profundadade da arvore AVL a partir de um no
 *****************************************************************************************/
 int count(link h){
@@ -421,11 +421,11 @@ int count(link h){
 *
 * Arguments:    h:  ponteiro para um no da arvore
 *
-* Returns: int 	retorna o valor do peso do no, NULL caso o no nao exista
+* Returns: int  retorna o valor do peso do no, NULL caso o no nao exista
 * Description:  retorna o valor do peso
 *****************************************************************************************/
 int peso(link h){
-	if (h == NULL) 
-		return 0;
-	return h->peso;
+    if (h == NULL) 
+        return 0;
+    return h->peso;
 }
