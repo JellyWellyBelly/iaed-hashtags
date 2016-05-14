@@ -27,21 +27,21 @@ Item AVLprocura(link head, Key v){
 /******************************************************************************************
 * searchR()
 *
-* Arguments:    head:  ponteiro para a cabeca da arvore AVL
+* Arguments:    h:  ponteiro para no da arvore AVL
 *               v:  key a procurar na arvore
 *
 * Returns: Item retorna um Item se encontrado na arvore ou NULLitem caso contrario
 * Description:  precorre a arvore recursivamente para retornar o elelemento correspondente a key a procurar
 *****************************************************************************************/
-Item searchR(link head, Key v){
-    if (head == NULL)
+Item searchR(link h, Key v){
+    if (h == NULL)
         return NULLitem;
-    if (eq(v, key(head->item)))
-        return head->item;
-    if (less(v, key(head->item)))
-        return searchR(head->l, v);
+    if (eq(v, key(h->item)))
+        return h->item;
+    if (less(v, key(h->item)))
+        return searchR(h->l, v);
     else
-        return searchR(head->r, v);
+        return searchR(h->r, v);
 }
 
 /******************************************************************************************
