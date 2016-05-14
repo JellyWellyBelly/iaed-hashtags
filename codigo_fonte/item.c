@@ -13,14 +13,14 @@
 * NOVOItem()
 *
 * Arguments:	NOVOItem:  ponteiro para o nome da hashtag
-*               conta_repeticoes:  numero de conta_repeticoes da hashtag
+*               repeticoes:  numero de repeticoes da hashtag
 *
 * Returns: void
 * Description:  cria e aloca memoria para o hashtag
 *****************************************************************************************/
-Item NOVOItem(char *hashtag,int conta_repeticoes){
+Item NOVOItem(char *hashtag,int repeticoes){
     Item x = (Item)malloc(sizeof(struct hashtags));
-    x->repeticoes = conta_repeticoes;
+    x->repeticoes = repeticoes;
     x->hashtag = strdup(hashtag);
 	return x; 
 }
@@ -44,7 +44,7 @@ void deleteItem(Item a){
 * Arguments:	a:  ponteiro para a estrutura da hashtag
 *
 * Returns: void
-* Description:  escreve o nome da hashtag e o seu numero de conta_repeticoes
+* Description:  escreve o nome da hashtag e o seu numero de repeticoes
 *****************************************************************************************/
 void imprimeItem(Item a){
     printf("#%s %d\n", a->hashtag, a->repeticoes);
@@ -57,7 +57,7 @@ void imprimeItem(Item a){
 *               b:  ponteiro para hashtag
 *
 * Returns: int 	retorna valor logico da comparacao de 2 hashtags
-* Description:  decrescente por conta_repeticoes e alfabeticamente em caso de empate | Usado no qsort
+* Description:  decrescente por repeticoes e alfabeticamente em caso de empate | Usado no qsort
 *****************************************************************************************/
 int ordenaHashtags(const void *a, const void *b) { 
 	Item *ia = (Item *)a;
